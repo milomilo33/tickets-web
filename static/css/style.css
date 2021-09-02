@@ -1,0 +1,17 @@
+.light {
+    border-top: 1px solid #d5d5d5;
+    width: 75%;
+    margin-top: .9rem;
+    margin-bottom: 1rem;
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    background-color: #2a2d33;
+    color: #d5d5d5;
+    padding-top: 2rem;
+    bottom: 0;
+    height: 18rem;
+    width: 100%;
+}
