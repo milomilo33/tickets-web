@@ -1,9 +1,10 @@
 package domain;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Location {
-    private String id;
+    private UUID id;
     private Double latitude;
     private Double longitude;
     private String address;
@@ -50,15 +51,15 @@ public class Location {
         return Objects.hash(id, latitude, longitude, address);
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public Location(String id, Double latitude, Double longitude, String address) {
+    public Location(UUID id, Double latitude, Double longitude, String address) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;

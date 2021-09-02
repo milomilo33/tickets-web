@@ -2,9 +2,10 @@ package domain;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Ticket {
-    private String id;
+    private UUID id;
     private String specialId; //10 characters total
     private Manifestation manifestation;
     private LocalDateTime date;
@@ -47,11 +48,11 @@ public class Ticket {
         return Objects.hash(id, specialId, manifestation, date, price, buyer, status, type);
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -111,7 +112,7 @@ public class Ticket {
         this.type = type;
     }
 
-    public Ticket(String id, String specialId, Manifestation manifestation, LocalDateTime date, Double price, User buyer, TicketStatus status, TicketType type) {
+    public Ticket(UUID id, String specialId, Manifestation manifestation, LocalDateTime date, Double price, User buyer, TicketStatus status, TicketType type) {
         this.id = id;
         this.specialId = specialId;
         this.manifestation = manifestation;

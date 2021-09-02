@@ -2,9 +2,10 @@ package domain;
 
 import java.util.Collection;
 import java.util.Objects;
+import java.util.UUID;
 
 public class User {
-    private String id;
+    private UUID id;
     private String username;
     private String password;
     private String name;
@@ -65,11 +66,11 @@ public class User {
         return Objects.hash(id, username, password, name, surname, gender, birth, role, tickets, manifestations, points, type, blocked, deleted);
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -177,7 +178,7 @@ public class User {
         this.deleted = deleted;
     }
 
-    public User(String id, String username, String password, String name, String surname, String gender, String birth, UserRole role, Collection<Ticket> tickets, Collection<Manifestation> manifestations, Double points, UserType type, Boolean blocked, Boolean deleted) {
+    public User(UUID id, String username, String password, String name, String surname, String gender, String birth, UserRole role, Collection<Ticket> tickets, Collection<Manifestation> manifestations, Double points, UserType type, Boolean blocked, Boolean deleted) {
         this.id = id;
         this.username = username;
         this.password = password;

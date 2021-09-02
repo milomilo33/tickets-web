@@ -2,9 +2,10 @@ package domain;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Manifestation {
-    private String id;
+    private UUID id;
     private String name;
     private String type;
     private String capacity;
@@ -130,15 +131,15 @@ public class Manifestation {
         return Objects.hash(id, name, type, capacity, date, ticketPrice, active, location, picture, deleted);
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public Manifestation(String id, String name, String type, String capacity, LocalDateTime date, Double ticketPrice, Boolean active, Location location, String picture, Boolean deleted) {
+    public Manifestation(UUID id, String name, String type, String capacity, LocalDateTime date, Double ticketPrice, Boolean active, Location location, String picture, Boolean deleted) {
         this.id = id;
         this.name = name;
         this.type = type;

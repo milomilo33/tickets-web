@@ -1,9 +1,10 @@
 package domain;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class UserType {
-    private String id;
+    private UUID id;
     private String name;
     private Double discount;
     private Double threshold;
@@ -60,15 +61,15 @@ public class UserType {
         return Objects.hash(id, name, discount, threshold);
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public UserType(String id, String name, Double discount, Double threshold) {
+    public UserType(UUID id, String name, Double discount, Double threshold) {
         this.id = id;
         this.name = name;
         this.discount = discount;

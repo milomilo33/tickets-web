@@ -1,9 +1,10 @@
 package domain;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Comment {
-    private String id;
+    private UUID id;
     private User user;
     private Manifestation manifestation;
     private String text;
@@ -37,11 +38,11 @@ public class Comment {
         return Objects.hash(id, user, manifestation, text, rating);
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -77,7 +78,7 @@ public class Comment {
         this.rating = rating;
     }
 
-    public Comment(String id, User user, Manifestation manifestation, String text, Integer rating) {
+    public Comment(UUID id, User user, Manifestation manifestation, String text, Integer rating) {
         this.id = id;
         this.user = user;
         this.manifestation = manifestation;
