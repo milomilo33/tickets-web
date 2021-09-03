@@ -161,13 +161,13 @@ Vue.component('registrationview', {
             let errorFound = false;
             let _this = this;
             if (
-                !this.name ||
-                !this.lastName ||
-                !this.gender ||
+                !this.name || this.name.trim() === "" ||
+                !this.lastName || this.lastName.trim() === "" ||
+                !this.gender || this.gender.trim() === "" ||
                 !this.dateOfBirth ||
-                !this.username ||
-                !this.password1 ||
-                !this.password2
+                !this.username || this.username.trim() === "" ||
+                !this.password1 || this.password1.trim() === "" ||
+                !this.password2 || this.password2.trim() === ""
             ) {
                 errorFound = true;
                 this.errorMessage = "Some fields were left blank!";
@@ -183,7 +183,7 @@ Vue.component('registrationview', {
 
             if (!errorFound) {
                 axios
-                    .post('/', {
+                    .post('/buyers/register', {
                         name: this.name,
                         surname: this.lastName,
                         username: this.username,
