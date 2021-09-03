@@ -2,7 +2,7 @@ Vue.component('registrationview', {
     template: `
         <div class="container">
             <b-alert v-model="showSuccessAlert" dismissible fade variant="success">
-              Success!
+              You have successfully registered as '{{this.username}}'.
             </b-alert>
             <b-alert v-model="showFailedAlert" dismissible fade variant="danger">
                 {{this.errorMessage}}
@@ -78,6 +78,23 @@ Vue.component('registrationview', {
                             />
                         </div>
                       </div>
+                      
+                      <div class="form-group row">
+                        <label
+                          for="username"
+                          class="col-md-4 col-form-label text-md-right"
+                          >Username</label
+                        >
+                        <div class="col-md-4">
+                          <input
+                            type="text"
+                            id="username"
+                            class="form-control"
+                            name="username"
+                            v-model="username"
+                          />
+                        </div>
+                      </div>
             
                       <div class="form-group row">
                         <label
@@ -129,10 +146,9 @@ Vue.component('registrationview', {
             gender: "",
             dateOfBirth: "",
             currentDate: new Date().toISOString().split('T', 1)[0],
+            username: "",
             password1: "",
             password2: "",
-            phoneNumber: "",
-            number: 0,
             errorMessage: "",
             showSuccessAlert: false,
             showFailedAlert: false,
@@ -141,6 +157,49 @@ Vue.component('registrationview', {
     methods: {
         formSubmit(e) {
             e.preventDefault();
+
+            let errorFound = false;
+            let _this = this;
+            if (
+                !this.name ||
+                !this.lastName ||
+                !this.gender ||
+                !this.dateOfBirth ||
+                !this.username ||
+                !this.password1 ||
+                !this.password2
+            ) {
+                errorFound = true;
+                this.errorMessage = "Some fields were left blank!";
+                this.showFailedAlert = true;
+                return;
+            }
+            if (this.password2 !== this.password1) {
+                errorFound = true;
+                this.errorMessage = "The passwords do not match!";
+                this.showFailedAlert = true;
+                return;
+            }
+
+            if (!errorFound) {
+                axios
+                    .post('/', {
+                        name: this.name,
+                        surname: this.lastName,
+                        username: this.username,
+                        password: this.password2,
+                        gender: this.gender,
+                        birth: this.dateOfBirth
+                    })
+                    .then(function (response) {
+                        _this.showSuccessAlert = true;
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        _this.errorMessage = error.response.data;
+                        _this.showFailedAlert = true;
+                    });
+            }
         }
     }
 })
