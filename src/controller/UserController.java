@@ -43,4 +43,40 @@ public class UserController {
         return res;
     });
 
+    public static Route Login = ((req, res) -> {
+        var credentials = gson.fromJson(req.body(), HashMap.class);
+
+        String username = (String) credentials.get("username");
+        String password = (String) credentials.get("password");
+
+        var users = PopStore.getUsers();
+        for (var user : users) {
+            if (username.equals(user.getUsername()) && !user.getDeleted()) {
+                if (password.equals(user.getPassword())) {
+                    res.status(200);
+
+                    switch (user.getRole()) {
+                        case KUPAC:
+                            res.body("buyer");
+                            break;
+                        case PRODAVAC:
+                            res.body("seller");
+                            break;
+                        case ADMINISTRATOR:
+                            res.body("administrator");
+                            break;
+                        default:
+                            res.body("error");
+                            break;
+                    }
+
+                    return res;
+                }
+            }
+        }
+
+        res.status(400);
+        return res;
+    });
+
 }

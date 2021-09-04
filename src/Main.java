@@ -28,6 +28,7 @@ public class Main {
         get("/api/test", (req, res) -> "Hello world");
 
         post("/api/buyers/register", UserController.RegisterBuyer);
+        post("/api/login", UserController.Login);
     }
 
 }
