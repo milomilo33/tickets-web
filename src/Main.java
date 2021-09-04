@@ -1,4 +1,6 @@
 import com.google.gson.Gson;
+import storage.PopStore;
+import utility.PopGenerator;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,8 +17,10 @@ public class Main {
 
     public static Gson gson = new Gson();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         port(8080);
+        PopGenerator.fillPopStore();
+        PopStore.writeAll();
 
         try {
             staticFiles.externalLocation(new File("./static").getCanonicalPath());
