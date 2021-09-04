@@ -70,6 +70,9 @@ public class UserController {
                             break;
                     }
 
+                    PopStore.setCurrentUser(user);
+                    req.session().attribute("currentUser", user);
+
                     return res;
                 }
             }

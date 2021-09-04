@@ -1,5 +1,6 @@
 import com.google.gson.Gson;
 import controller.UserController;
+import storage.PopStore;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +25,10 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        before((req, res) -> {
+            PopStore.setCurrentUser(req.session().attribute("currentUser"));
+        });
 
         get("/api/test", (req, res) -> "Hello world");
 
