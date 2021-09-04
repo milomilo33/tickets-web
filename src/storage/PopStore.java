@@ -1,10 +1,7 @@
 package storage;
 
 import com.google.gson.Gson;
-import domain.Comment;
-import domain.Manifestation;
-import domain.Ticket;
-import domain.User;
+import domain.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +20,15 @@ public class PopStore {
     private static Collection<Manifestation> manifestations;
     private static Collection<Ticket> tickets;
     private static Collection<Comment> comments;
+    private static Collection<UserType> userTypes;
+
+    public static Collection<UserType> getUserTypes() {
+        return userTypes;
+    }
+
+    public static void setUserTypes(Collection<UserType> userTypes) {
+        PopStore.userTypes = userTypes;
+    }
 
     public static void readAll(){
         users = new ArrayList<>();
