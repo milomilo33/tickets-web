@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class PopStore {
+    private static User currentUser;
+
     private static Collection<User> users;
     private static Collection<Manifestation> manifestations;
     private static Collection<Ticket> tickets;
@@ -133,5 +135,13 @@ public class PopStore {
 
     public static void setComments(Collection<Comment> comments) {
         PopStore.comments = comments;
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User currentUser) {
+        PopStore.currentUser = currentUser;
     }
 }

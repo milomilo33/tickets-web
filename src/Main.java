@@ -1,6 +1,7 @@
 import com.google.gson.Gson;
 import storage.PopStore;
 import utility.PopGenerator;
+import controller.UserController;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +29,14 @@ public class Main {
             e.printStackTrace();
         }
 
-        get("/api/test", (request, response) -> "Hello world");
+        before((req, res) -> {
+            PopStore.setCurrentUser(req.session().attribute("currentUser"));
+        });
+
+        get("/api/test", (req, res) -> "Hello world");
+
+        post("/api/buyers/register", UserController.RegisterBuyer);
+        post("/api/login", UserController.Login);
     }
 
 }

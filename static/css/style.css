@@ -15,3 +15,14 @@ footer {
     height: 18rem;
     width: 100%;
 }
+
+.card-header {
+    background-color: #ccffbc;
+}
+
+.login {
+    max-width: 40rem;
+    background-color: #ffffff;
+    margin: 100px auto 200px;
+    padding: 20px;
+}
