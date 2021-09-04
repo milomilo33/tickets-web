@@ -55,6 +55,7 @@ Vue.component('loginview', {
                     password: this.password,
                 })
                 .then((response) => {
+                    console.log(response);
                     let role = response.data;
                     if (role === "buyer")
                         _this.$router.push("/BuyerView");

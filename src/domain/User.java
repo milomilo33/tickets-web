@@ -13,8 +13,8 @@ public class User {
     private String gender;
     private String birth;
     private UserRole role;
-    private Collection<Ticket> tickets;
-    private Collection<Manifestation> manifestations;
+    private transient Collection<Ticket> tickets;
+    private transient Collection<Manifestation> manifestations;
     private Double points;
     private UserType type;
     private Boolean blocked;

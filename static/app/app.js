@@ -2,6 +2,7 @@ const MainView = {template: '<mainview></mainview>'}
 const RegistrationView = {template: '<registrationview></registrationview>'}
 const LoginView = {template: '<loginview></loginview>'}
 const BuyerView = {template: '<buyerview></buyerview>'}
+const ProfileView = {template: '<profileview></profileview>'}
 
 
 axios.defaults.baseURL = 'http://localhost:8080/api/'
@@ -25,7 +26,13 @@ const router = new VueRouter({
 
         {
             path: '/BuyerView',
-            component: BuyerView
+            component: BuyerView,
+            children: [
+                {
+                    path: 'Profile',
+                    component: ProfileView
+                }
+            ]
         }
     ]
 });

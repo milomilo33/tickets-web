@@ -33,10 +33,18 @@ public class Main {
             PopStore.setCurrentUser(req.session().attribute("currentUser"));
         });
 
+        after((request, response) -> {
+            response.header("Access-Control-Allow-Origin", "*");
+            response.header("Access-Control-Allow-Methods", "*");
+        });
+
         get("/api/test", (req, res) -> "Hello world");
+        get("/api/currentUsername", UserController.GetCurrentUsername);
+        get("/api/user", UserController.GetCurrentUser);
 
         post("/api/buyers/register", UserController.RegisterBuyer);
         post("/api/login", UserController.Login);
+        post("/api/users/profile", UserController.ChangeUserProfileInfo);
     }
 
 }

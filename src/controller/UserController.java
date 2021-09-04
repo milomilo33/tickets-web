@@ -73,12 +73,56 @@ public class UserController {
                     PopStore.setCurrentUser(user);
                     req.session().attribute("currentUser", user);
 
+                    res.status(200);
                     return res;
                 }
             }
         }
 
         res.status(400);
+        return res;
+    });
+
+    public static Route GetCurrentUsername = ((req, res) -> {
+        if (PopStore.getCurrentUser() == null) {
+            res.status(400);
+        }
+        else {
+            String username = PopStore.getCurrentUser().getUsername();
+            res.status(200);
+            res.body(username);
+        }
+
+        return res;
+    });
+
+    public static Route GetCurrentUser = ((req, res) -> {
+        if (PopStore.getCurrentUser() == null) {
+            res.status(400);
+        }
+        else {
+            res.status(200);
+            res.body(gson.toJson(PopStore.getCurrentUser()));
+        }
+
+        return res;
+    });
+
+    public static Route ChangeUserProfileInfo = ((req, res) -> {
+        var newUserDetails = gson.fromJson(req.body(), HashMap.class);
+
+        String name = (String) newUserDetails.get("name");
+        String surname = (String) newUserDetails.get("surname");
+        String gender = (String) newUserDetails.get("gender");
+        String birth = (String) newUserDetails.get("birth");
+
+        User user = PopStore.getCurrentUser();
+        user.setName(name);
+        user.setSurname(surname);
+        user.setGender(gender);
+        user.setBirth(birth);
+
+        res.status(200);
         return res;
     });
 
