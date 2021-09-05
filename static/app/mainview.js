@@ -35,26 +35,6 @@ Vue.component('mainview', {
             
             <router-view></router-view>
             
-            <footer>
-                <div class="container-fluid">
-                    <div class="row text-center">
-                        <div class=col-md-6>
-                            <hr class="light">
-                            <h5>Tim: ROBOT</h5>
-                            <hr class="light">
-                            <p>Joca Petljanski</p>
-                            <p>Milo Milovanovic</p>
-                        </div>
-                        <div class=col-md-6>
-                            <hr class="light">
-                            <h5>Contact</h5>
-                            <hr class="light">
-                            <p>joksip284@gmail.com (ili kako vec)</p>
-                            <p>milovanovicm309@gmail.com</p>
-                        </div>
-                    </div>
-                </div>
-            </footer>
         </div>
     `
     }

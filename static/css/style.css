@@ -26,3 +26,35 @@ footer {
     margin: 100px auto 200px;
     padding: 20px;
 }
+
+#application {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+    position: relative;
+    min-height: 100vh;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+}
+
+#content-wrapper {
+    padding-bottom: 18rem;
+}
+
+/*html, body {*/
+/*    min-height: 100%;*/
+/*}*/
+
+html,
+body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+.container {
+    padding-bottom: 40px;
+}
