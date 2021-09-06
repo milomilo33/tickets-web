@@ -15,6 +15,15 @@ public class Manifestation {
     private Location location;
     private String picture;
     private Boolean deleted;
+    private Double rating;
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
 
     public Manifestation() {
     }
@@ -93,10 +102,14 @@ public class Manifestation {
         this.deleted = deleted;
     }
 
+    public String getLocationAddr(){
+        return location.getAddress();
+    }
+
     @Override
     public String toString() {
         return "Manifestation{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", capacity='" + capacity + '\'' +
@@ -106,6 +119,7 @@ public class Manifestation {
                 ", location=" + location +
                 ", picture='" + picture + '\'' +
                 ", deleted=" + deleted +
+                ", rating=" + rating +
                 '}';
     }
 
@@ -123,12 +137,13 @@ public class Manifestation {
                 Objects.equals(active, that.active) &&
                 Objects.equals(location, that.location) &&
                 Objects.equals(picture, that.picture) &&
-                Objects.equals(deleted, that.deleted);
+                Objects.equals(deleted, that.deleted) &&
+                Objects.equals(rating, that.rating);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, type, capacity, date, ticketPrice, active, location, picture, deleted);
+        return Objects.hash(id, name, type, capacity, date, ticketPrice, active, location, picture, deleted,rating);
     }
 
     public UUID getId() {
@@ -139,7 +154,7 @@ public class Manifestation {
         this.id = id;
     }
 
-    public Manifestation(UUID id, String name, String type, String capacity, LocalDateTime date, Double ticketPrice, Boolean active, Location location, String picture, Boolean deleted) {
+    public Manifestation(UUID id, String name, String type, String capacity, LocalDateTime date, Double ticketPrice, Boolean active, Location location, String picture, Boolean deleted, Double rating) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -150,5 +165,6 @@ public class Manifestation {
         this.location = location;
         this.picture = picture;
         this.deleted = deleted;
+        this.rating = rating;
     }
 }

@@ -37,6 +37,7 @@ Vue.component('buyerview', {
                 </div>
                 
                 <router-view></router-view>
+                <allmanifestationsview></allmanifestationsview>
                 
                 <footer>
                     <div class="container-fluid">

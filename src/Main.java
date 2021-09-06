@@ -1,4 +1,5 @@
 import com.google.gson.Gson;
+import controller.ManifestationController;
 import storage.PopStore;
 import utility.PopGenerator;
 import controller.UserController;
@@ -41,6 +42,9 @@ public class Main {
         get("/api/test", (req, res) -> "Hello world");
         get("/api/currentUsername", UserController.GetCurrentUsername);
         get("/api/user", UserController.GetCurrentUser);
+        get("/api/allmanifestations", ManifestationController.GetAllManifestations);
+        get("/api/manifestationtypes", ManifestationController.GetAllManifestationTypes);
+        get("/api/manifestationsearch", ManifestationController.SearchAllManifestations);
 
         post("/api/buyers/register", UserController.RegisterBuyer);
         post("/api/login", UserController.Login);
