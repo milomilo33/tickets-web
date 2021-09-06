@@ -74,11 +74,11 @@ Vue.component('allmanifestationsview', {
               <b-list-group-item>Rating: {{ratingConv(m.rating)}}</b-list-group-item>
             </b-list-group>
         
-            <b-button href="#" variant="primary">Details</b-button>
+            <b-button v-on:click="details(m.id)" variant="primary">Details</b-button>
           </b-card>
+        </div>        
         </div>
         </b-card-group>
-        </div>
         </div>
     `,
 
@@ -112,6 +112,9 @@ Vue.component('allmanifestationsview', {
                     }
                 })
                 .catch(error => console.log(error));
+        },
+        details(id){
+            this.$router.push({name: 'ManifestationDetails', params: {'id' : id}});
         }
     },
 

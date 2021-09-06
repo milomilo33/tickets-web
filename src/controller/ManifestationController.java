@@ -6,10 +6,7 @@ import spark.Route;
 import storage.PopStore;
 
 import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ManifestationController {
@@ -131,5 +128,25 @@ public class ManifestationController {
 
         return res;
 
+    });
+
+    public static Route ShowManifestationDetails = ((req, res) -> {
+        res.status(200);
+        res.body(gson.toJson(PopStore.getManifestations().stream().filter(manifestation -> manifestation.getId().equals(UUID.fromString(req.params(":id")))).collect(Collectors.toList()).get(0)));
+        return res;
+    });
+
+    public static Route GetRemainingTickets = ((req, res) -> {
+        res.status(200);
+        Manifestation m = PopStore.getManifestations().stream().filter(manifestation -> manifestation.getId().equals(UUID.fromString(req.params(":id")))).collect(Collectors.toList()).get(0);
+        Long rem = Integer.parseInt(m.getCapacity()) - PopStore.getTickets().stream().filter(ticket -> ticket.getManifestation().getId().equals(m.getId())).count();
+        res.body(gson.toJson(rem));
+        return res;
+    });
+
+    public static Route GetCommentsForManifestation = ((req, res) -> {
+        res.status(200);
+        res.body(gson.toJson(PopStore.getComments().stream().filter(comment -> comment.getManifestation().getId().equals(UUID.fromString(req.params(":id")))).collect(Collectors.toList())));
+        return res;
     });
 }
