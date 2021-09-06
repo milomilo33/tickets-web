@@ -37,7 +37,7 @@ Vue.component('buyerview', {
                 </div>
                 
                 <router-view></router-view>
-                <allmanifestationsview></allmanifestationsview>
+                
                 
             </div>
         `,

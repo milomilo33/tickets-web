@@ -34,7 +34,7 @@ Vue.component('mainview', {
             </div>
             
             <router-view></router-view>
-            <allmanifestationsview></allmanifestationsview>
+            
             
         </div>
     `

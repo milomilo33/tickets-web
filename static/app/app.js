@@ -23,7 +23,7 @@ const router = new VueRouter({
                     component: LoginView
                 },
                 {
-                    path: 'AllManifestations',
+                    path: '',
                     component: AllManifestationsView
                 }
             ]
@@ -33,6 +33,10 @@ const router = new VueRouter({
             path: '/BuyerView',
             component: BuyerView,
             children: [
+                {
+                    path: '',
+                    component: AllManifestationsView
+                },
                 {
                     path: 'Profile',
                     component: ProfileView
