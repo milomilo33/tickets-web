@@ -45,6 +45,9 @@ public class Main {
         get("/api/allmanifestations", ManifestationController.GetAllManifestations);
         get("/api/manifestationtypes", ManifestationController.GetAllManifestationTypes);
         get("/api/manifestationsearch", ManifestationController.SearchAllManifestations);
+        get("/api/manifestationdetails/:id", ManifestationController.ShowManifestationDetails);
+        get("/api/remainingtickets/:id", ManifestationController.GetRemainingTickets);
+        get("/api/manifestationcomments/:id", ManifestationController.GetCommentsForManifestation);
 
         post("/api/buyers/register", UserController.RegisterBuyer);
         post("/api/login", UserController.Login);

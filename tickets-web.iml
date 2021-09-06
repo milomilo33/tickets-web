@@ -198,5 +198,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="ol" level="application" />
   </component>
 </module>
