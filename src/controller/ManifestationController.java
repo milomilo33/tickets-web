@@ -12,17 +12,53 @@ import java.util.stream.Collectors;
 public class ManifestationController {
     public static Gson gson = new Gson();
 
+    private static List<Manifestation> FilterManifestations(){
+        List<Manifestation> manifestations = new ArrayList<>();
+        if(PopStore.getCurrentUser() == null){
+            manifestations = PopStore.getManifestations()
+                    .stream()
+                    .filter(manifestation -> !manifestation.getDeleted())
+                    .filter(Manifestation::getActive)
+                    .collect(Collectors.toList());
+        }
+        else
+        switch (PopStore.getCurrentUser().getRole()) {
+            case PRODAVAC:
+                    manifestations = PopStore.getManifestations()
+                        .stream()
+                        .filter(manifestation -> !manifestation.getDeleted())
+                        .filter(manifestation -> {
+                            if(!manifestation.getActive()){
+                                return PopStore.getCurrentUser().getManifestations().stream().anyMatch(manifestation1 -> manifestation1.getId().equals(manifestation.getId()));
+                            }
+                            return true;
+                        })
+                        .collect(Collectors.toList());
+                break;
+            case ADMINISTRATOR:
+                manifestations = PopStore.getManifestations()
+                        .stream()
+                        .filter(manifestation -> !manifestation.getDeleted())
+                        .collect(Collectors.toList());
+                break;
+            default:
+                manifestations = PopStore.getManifestations()
+                        .stream()
+                        .filter(manifestation -> !manifestation.getDeleted())
+                        .filter(Manifestation::getActive)
+                        .collect(Collectors.toList());
+                break;
+        }
+        return manifestations;
+    }
+
     public static Route GetAllManifestations = ((req, res) -> {
         if (PopStore.getManifestations() == null) {
             res.status(200);
         }
         else {
             res.status(200);
-            res.body(gson.toJson(PopStore.getManifestations()
-                    .stream()
-                    .filter(manifestation -> !manifestation.getDeleted())
-                    .filter(Manifestation::getActive)
-                    .collect(Collectors.toList())));
+            res.body(gson.toJson(FilterManifestations()));
         }
 
         return res;
@@ -48,11 +84,7 @@ public class ManifestationController {
             res.status(200);
             Map<String, String> searchParams = new HashMap<>();
             req.queryParams().forEach(q -> searchParams.put(q, req.queryParams(q)));
-            List<Manifestation> manifestations = PopStore.getManifestations()
-                    .stream()
-                    .filter(manifestation -> !manifestation.getDeleted())
-                    .filter(Manifestation::getActive)
-                    .collect(Collectors.toList());
+            List<Manifestation> manifestations = FilterManifestations();
 
             if(searchParams.getOrDefault("dateFrom", "1900-01-01").equals("")) searchParams.put("dateFrom", "1900-01-01");
             if(searchParams.getOrDefault("dateTo", "1900-01-01").equals("")) searchParams.put("dateTo", "3021-01-01");

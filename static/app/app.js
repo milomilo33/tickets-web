@@ -62,7 +62,16 @@ const router = new VueRouter({
                 {
                     path: 'Profile',
                     component: ProfileView
-                }
+                },
+                {
+                    path: '',
+                    component: AllManifestationsView
+                },
+                {
+                    path: '/ManifestationDetails/:id',
+                    name: 'ManifestationDetails',
+                    component: ManifestationDetailsView
+                },
             ]
         },
         {
@@ -72,7 +81,16 @@ const router = new VueRouter({
                 {
                     path: 'Profile',
                     component: ProfileView
-                }
+                },
+                {
+                    path: '',
+                    component: AllManifestationsView
+                },
+                {
+                    path: '/ManifestationDetails/:id',
+                    name: 'ManifestationDetails',
+                    component: ManifestationDetailsView
+                },
             ]
         },
     ]
