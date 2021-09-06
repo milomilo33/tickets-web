@@ -3,6 +3,7 @@ const RegistrationView = {template: '<registrationview></registrationview>'}
 const LoginView = {template: '<loginview></loginview>'}
 const BuyerView = {template: '<buyerview></buyerview>'}
 const ProfileView = {template: '<profileview></profileview>'}
+const AllManifestationsView = {template: '<allmanifestationsview></allmanifestationsview>'}
 
 
 axios.defaults.baseURL = 'http://localhost:8080/api/'
@@ -20,6 +21,10 @@ const router = new VueRouter({
                 {
                     path: 'Login',
                     component: LoginView
+                },
+                {
+                    path: 'AllManifestations',
+                    component: AllManifestationsView
                 }
             ]
         },
