@@ -5,6 +5,8 @@ const BuyerView = {template: '<buyerview></buyerview>'}
 const ProfileView = {template: '<profileview></profileview>'}
 const AllManifestationsView = {template: '<allmanifestationsview></allmanifestationsview>'}
 const ManifestationDetailsView = {template: '<manifestationdetailsview></manifestationdetailsview>'}
+const SellerView = {template: '<sellerview></sellerview>'}
+const AdminView = {template: '<adminview></adminview>'}
 
 
 axios.defaults.baseURL = 'http://localhost:8080/api/'
@@ -52,7 +54,27 @@ const router = new VueRouter({
                     component: ProfileView
                 }
             ]
-        }
+        },
+        {
+            path: '/SellerView',
+            component: SellerView,
+            children: [
+                {
+                    path: 'Profile',
+                    component: ProfileView
+                }
+            ]
+        },
+        {
+            path: '/AdminView',
+            component: AdminView,
+            children: [
+                {
+                    path: 'Profile',
+                    component: ProfileView
+                }
+            ]
+        },
     ]
 });
 
