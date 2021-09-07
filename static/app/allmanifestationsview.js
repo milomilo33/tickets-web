@@ -55,7 +55,7 @@ Vue.component('allmanifestationsview', {
         </b-form>
         <br/>
         <b-card-group deck>
-        <div style="overflow:scroll; height: 75%; width: 100%" class="row pl-3">
+        <div class="row pl-3">
         <div class="col" v-for="m in manifestations" :key="m.id" >
           <b-card
             :title="m.name"
@@ -114,7 +114,9 @@ Vue.component('allmanifestationsview', {
                 .catch(error => console.log(error));
         },
         details(id){
-            this.$router.push({name: 'ManifestationDetails', params: {'id' : id}});
+            let curr = window.location.href;
+            curr = curr.split('/')[4];
+            this.$router.push({path: curr + '/ManifestationDetails', query: {'id' : id}});
         }
     },
 

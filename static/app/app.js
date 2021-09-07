@@ -7,6 +7,7 @@ const AllManifestationsView = {template: '<allmanifestationsview></allmanifestat
 const ManifestationDetailsView = {template: '<manifestationdetailsview></manifestationdetailsview>'}
 const SellerView = {template: '<sellerview></sellerview>'}
 const AdminView = {template: '<adminview></adminview>'}
+const CreateManifestation = {template: '<createmanifestationview></createmanifestationview>'}
 
 
 axios.defaults.baseURL = 'http://localhost:8080/api/'
@@ -30,8 +31,7 @@ const router = new VueRouter({
                     component: AllManifestationsView
                 },
                 {
-                    path: 'ManifestationDetails/:id',
-                    name: 'ManifestationDetails',
+                    path: 'ManifestationDetails',
                     component: ManifestationDetailsView
                 },
             ]
@@ -45,8 +45,7 @@ const router = new VueRouter({
                     component: AllManifestationsView
                 },
                 {
-                    path: '/ManifestationDetails/:id',
-                    name: 'ManifestationDetails',
+                    path: 'ManifestationDetails',
                     component: ManifestationDetailsView
                 },
                 {
@@ -68,9 +67,12 @@ const router = new VueRouter({
                     component: AllManifestationsView
                 },
                 {
-                    path: '/ManifestationDetails/:id',
-                    name: 'ManifestationDetails',
+                    path: 'ManifestationDetails',
                     component: ManifestationDetailsView
+                },
+                {
+                    path: 'CreateManifestation',
+                    component: CreateManifestation
                 },
             ]
         },
@@ -85,12 +87,13 @@ const router = new VueRouter({
                 {
                     path: '',
                     component: AllManifestationsView
+
                 },
                 {
-                    path: '/ManifestationDetails/:id',
-                    name: 'ManifestationDetails',
+                    path: 'ManifestationDetails',
                     component: ManifestationDetailsView
                 },
+
             ]
         },
     ]

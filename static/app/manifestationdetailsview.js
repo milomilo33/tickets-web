@@ -1,10 +1,25 @@
 Vue.component('manifestationdetailsview', {
     data(){
         return{
-            manifestation: null,
+            manifestation: {
+                date: {
+                    date:{
+                        day:0,
+                        month:1,
+                        year:0
+                    },
+                    time:{
+                        hour: 0,
+                        minute: 0
+                    }
+                },
+                location:{
+
+                }
+            },
             remainingTickets: 0,
             comments: {},
-            pos: {latitude: 45.2716, longitude: 19.8478},
+            mapPosition: {latitude: 45.267136, longitude: 19.833549},
             noComments: false
         }
     },
@@ -33,7 +48,7 @@ Vue.component('manifestationdetailsview', {
             <b-container fluid class="p-4 bg-dark">
               <b-row>
                 <b-col>
-                      
+                     <div id="map" class="map"></div> 
                 </b-col>
                 <b-col>
                   <b-img  fluid :src="manifestation.picture" alt="Image"></b-img>
@@ -84,14 +99,13 @@ Vue.component('manifestationdetailsview', {
         activeConv(status){
             return status ? "Active" : "Inactive";
         },
-        centerMap(){
-            this.pos.latitude = parseFloat(this.manifestation.location.latitude);
-            this.pos.longitude = parseFloat(this.manifestation.location.longitude);
-            this.manifestation.latitude = this.pos.latitude;
-            this.manifestation.longitude = this.pos.longitude;
-            console.log(this.manifestation.latitude);
+        showOnMap(){
+            this.mapPosition.latitude = parseFloat(this.manifestation.location.latitude);
+            this.mapPosition.longitude = parseFloat(this.manifestation.location.longitude);
+            this.manifestation.latitude = this.mapPosition.latitude;
+            this.manifestation.longitude = this.mapPosition.longitude;
             let self=this;
-            let map = new ol.Map({
+            var map = new ol.Map({
                 target: 'map',
                 layers: [
                     new ol.layer.Tile({
@@ -99,7 +113,7 @@ Vue.component('manifestationdetailsview', {
                     })
                 ],
                 view: new ol.View({
-                    center: ol.proj.fromLonLat([self.pos.longitude, self.pos.latitude]),
+                    center: ol.proj.fromLonLat([self.mapPosition.longitude, self.mapPosition.latitude]),
                     zoom: 17
                 })
             });
@@ -107,23 +121,23 @@ Vue.component('manifestationdetailsview', {
     },
     mounted(){
         let self = this;
-        axios.get('manifestationdetails/' + this.$route.params.id)
+        axios.get('manifestationdetails/' + this.$route.query.id)
             .then(res =>{
                 self.manifestation = res.data;
                 self.manifestation.picture = 'data:image/png;base64,' + self.manifestation.picture;
-                self.centerMap();
+                self.showOnMap();
             })
             .catch(err => {
                 console.error(err);
             });
-        axios.get('remainingtickets/' + this.$route.params.id)
+        axios.get('remainingtickets/' + this.$route.query.id)
             .then(res =>{
                 self.remainingTickets = res.data;
             })
             .catch(err => {
                 console.error(err);
             });
-        axios.get('manifestationcomments/' + this.$route.params.id)
+        axios.get('manifestationcomments/' + this.$route.query.id)
             .then(res =>{
                 self.comments = res.data;
                 if(self.comments.length === 0)

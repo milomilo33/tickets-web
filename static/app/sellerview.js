@@ -13,7 +13,7 @@ Vue.component('sellerview', {
                         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
                         <b-collapse id="nav-collapse" is-nav>
                         <b-navbar-nav>
-                          <b-nav-item href="">Placeholder #1</b-nav-item>
+                          <b-nav-item href="/#/SellerView/CreateManifestation">New Manifestation</b-nav-item>
                           <b-nav-item href="">Placeholder #2</b-nav-item>
                             <b-nav-item-dropdown text="Dropdown placeholder" left>
                                 <b-dropdown-item href="">Option uno</b-dropdown-item>
@@ -29,7 +29,7 @@ Vue.component('sellerview', {
                             <b-nav-item-dropdown :text="currentUsername" right>
                                 <b-dropdown-item href="/#/SellerView/Profile">Profile</b-dropdown-item>
                                 <b-dropdown-item href="">Change password</b-dropdown-item>
-                                <b-dropdown-item href="">Sign Out</b-dropdown-item>
+                                <b-dropdown-item href="" @click="logout">Sign Out</b-dropdown-item>
                             </b-nav-item-dropdown>
                         </b-navbar-nav>
                         </b-collapse>
@@ -41,7 +41,15 @@ Vue.component('sellerview', {
                 
             </div>
         `,
-
+        methods:{
+          logout(e){
+              e.preventDefault();
+              axios.post('/logout')
+                  .then(res =>{
+                      window.location.href = "#/";
+                  })
+          }
+        },
         mounted() {
             axios.get('/currentUsername')
                 .then(response => {

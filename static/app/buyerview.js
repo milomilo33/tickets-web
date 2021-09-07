@@ -29,7 +29,7 @@ Vue.component('buyerview', {
                             <b-nav-item-dropdown :text="currentUsername" right>
                                 <b-dropdown-item href="/#/BuyerView/Profile">Profile</b-dropdown-item>
                                 <b-dropdown-item href="">Change password</b-dropdown-item>
-                                <b-dropdown-item href="">Sign Out</b-dropdown-item>
+                                <b-dropdown-item href="" @Click="logout">Sign Out</b-dropdown-item>
                             </b-nav-item-dropdown>
                         </b-navbar-nav>
                         </b-collapse>
@@ -41,7 +41,15 @@ Vue.component('buyerview', {
                 
             </div>
         `,
-
+    methods:{
+        logout(e){
+            e.preventDefault();
+            axios.post('/logout')
+                .then(res =>{
+                    window.location.href = "#/";
+                })
+        }
+    },
         mounted() {
             axios.get('/currentUsername')
                     .then(response => {
