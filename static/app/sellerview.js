@@ -14,13 +14,7 @@ Vue.component('sellerview', {
                         <b-collapse id="nav-collapse" is-nav>
                         <b-navbar-nav>
                           <b-nav-item href="/#/SellerView/CreateManifestation">New Manifestation</b-nav-item>
-                          <b-nav-item href="">Placeholder #2</b-nav-item>
-                            <b-nav-item-dropdown text="Dropdown placeholder" left>
-                                <b-dropdown-item href="">Option uno</b-dropdown-item>
-                                <b-dropdown-item href="">Option dos</b-dropdown-item>
-                                <b-dropdown-item href="">Option tres</b-dropdown-item>
-                                <b-dropdown-item href="">Option cuatro</b-dropdown-item>
-                            </b-nav-item-dropdown>
+                          <b-nav-item href="/#/SellerView/SellersManifestations">My Manifestations</b-nav-item>                            
                           <b-nav-item href="">Placeholder #3</b-nav-item>
                         </b-navbar-nav>
                         
