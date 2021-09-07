@@ -83,6 +83,13 @@ public class UserController {
         return res;
     });
 
+    public static Route Logout = ((req, res) -> {
+        PopStore.setCurrentUser(null);
+        req.session().attribute("currentUser", null);
+        res.status(200);
+        return res;
+    });
+
     public static Route GetCurrentUsername = ((req, res) -> {
         if (PopStore.getCurrentUser() == null) {
             res.status(400);

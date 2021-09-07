@@ -51,7 +51,9 @@ public class Main {
 
         post("/api/buyers/register", UserController.RegisterBuyer);
         post("/api/login", UserController.Login);
+        post("/api/logout", UserController.Logout);
         post("/api/users/profile", UserController.ChangeUserProfileInfo);
+        post("/api/addnewmanifestation", ManifestationController.CreateNewManifestation);
     }
 
 }

@@ -1,11 +1,14 @@
 package controller;
 
 import com.google.gson.Gson;
+import domain.Location;
 import domain.Manifestation;
 import spark.Route;
 import storage.PopStore;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -179,6 +182,39 @@ public class ManifestationController {
     public static Route GetCommentsForManifestation = ((req, res) -> {
         res.status(200);
         res.body(gson.toJson(PopStore.getComments().stream().filter(comment -> comment.getManifestation().getId().equals(UUID.fromString(req.params(":id")))).collect(Collectors.toList())));
+        return res;
+    });
+
+    public static Route CreateNewManifestation = ((req, res) -> {
+        res.status(200);
+        var json = gson.fromJson((req.body()), HashMap.class);
+        LocalDateTime dateTime = LocalDateTime.of(LocalDate.parse((CharSequence) json.get("date")), LocalTime.parse((CharSequence) json.get("time")));
+        if(PopStore.getManifestations().stream().anyMatch(manifestation -> manifestation.getDate().isEqual(dateTime))){
+            res.body(gson.toJson("Opening date matches a manifestation that already exists.\nCreation failed."));
+            return res;
+        }
+        Manifestation manifestation = new Manifestation();
+        manifestation.setId(UUID.randomUUID());
+        manifestation.setActive(false);
+        manifestation.setCapacity((String) json.get("capacity"));
+        manifestation.setDate(dateTime);
+        manifestation.setDeleted(false);
+        Location location = new Location();
+        location.setId(UUID.randomUUID());
+        location.setAddress((String) json.get("address"));
+        location.setLatitude((Double) json.get("latitude"));
+        location.setLongitude((Double) json.get("longitude"));
+        manifestation.setLocation(location);
+        manifestation.setName((String) json.get("name"));
+        String strToFilter = "data:image/png;base64,";
+        String filteredStr = (String) json.get("picture");
+        manifestation.setPicture(filteredStr.substring(strToFilter.length()));
+        manifestation.setRating(0.0);
+        manifestation.setTicketPrice(Double.valueOf((String) json.get("ticketPrice")));
+        manifestation.setType((String) json.get("type"));
+        PopStore.getManifestations().add(manifestation);
+        PopStore.getCurrentUser().getManifestations().add(manifestation);
+        res.body(gson.toJson("Manifestation successfully created!"));
         return res;
     });
 }
