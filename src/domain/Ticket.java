@@ -13,6 +13,7 @@ public class Ticket {
     private User buyer;
     private TicketStatus status;
     private TicketType type;
+    private Boolean deleted;
 
     @Override
     public String toString() {
@@ -121,8 +122,17 @@ public class Ticket {
         this.buyer = buyer;
         this.status = status;
         this.type = type;
+        this.deleted = false;
     }
 
     public Ticket() {
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }
