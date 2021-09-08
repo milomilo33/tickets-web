@@ -30,7 +30,7 @@ Vue.component('sellerview', {
                             <b-nav-item-dropdown :text="currentUsername" right>
                                 <b-dropdown-item href="/#/SellerView/Profile">Profile</b-dropdown-item>
                                 <b-dropdown-item href="">Change password</b-dropdown-item>
-                                <b-dropdown-item href="" @click="logout">Sign Out</b-dropdown-item>
+                                <b-dropdown-item href="" v-on:click="logout">Sign Out</b-dropdown-item>
                             </b-nav-item-dropdown>
                         </b-navbar-nav>
                         </b-collapse>

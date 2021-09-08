@@ -1,6 +1,7 @@
 package controller;
 
 import com.google.gson.Gson;
+import domain.Comment;
 import domain.Location;
 import domain.Manifestation;
 import domain.TicketStatus;
@@ -192,7 +193,14 @@ public class ManifestationController {
 
     public static Route GetCommentsForManifestation = ((req, res) -> {
         res.status(200);
-        res.body(gson.toJson(PopStore.getComments().stream().filter(comment -> comment.getManifestation().getId().equals(UUID.fromString(req.params(":id")))).collect(Collectors.toList())));
+        var comments = PopStore.getComments().stream().filter(comment -> comment.getManifestation().getId().equals(UUID.fromString(req.params(":id")))).filter(comment -> !comment.getDeleted()).collect(Collectors.toList());
+        if(PopStore.getCurrentUser()==null)
+            comments = comments.stream().filter(Comment::getApproved).collect(Collectors.toList());
+        else {
+            if (PopStore.getCurrentUser().getRole().equals(UserRole.KUPAC))
+                comments = comments.stream().filter(Comment::getApproved).collect(Collectors.toList());
+        }
+        res.body(gson.toJson(comments));
         return res;
     });
 
