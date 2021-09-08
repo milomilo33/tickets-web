@@ -1,5 +1,7 @@
 import com.google.gson.Gson;
 import controller.ManifestationController;
+import controller.TicketController;
+import domain.Ticket;
 import storage.PopStore;
 import utility.PopGenerator;
 import controller.UserController;
@@ -48,6 +50,8 @@ public class Main {
         get("/api/manifestationdetails/:id", ManifestationController.ShowManifestationDetails);
         get("/api/remainingtickets/:id", ManifestationController.GetRemainingTickets);
         get("/api/manifestationcomments/:id", ManifestationController.GetCommentsForManifestation);
+        get("/api/alltickets", TicketController.GetAllTickets);
+        get("/api/ticketsearch", TicketController.SearchAllTickets);
 
         post("/api/buyers/register", UserController.RegisterBuyer);
         post("/api/login", UserController.Login);

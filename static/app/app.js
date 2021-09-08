@@ -8,6 +8,7 @@ const ManifestationDetailsView = {template: '<manifestationdetailsview></manifes
 const SellerView = {template: '<sellerview></sellerview>'}
 const AdminView = {template: '<adminview></adminview>'}
 const CreateManifestation = {template: '<createmanifestationview></createmanifestationview>'}
+const AllTicketsView = {template: '<allticketsview></allticketsview>'}
 const SellersManifestations = {template: '<sellersmanifestationsview></sellersmanifestationsview>'}
 const UpdateManifestation = {template: '<updatemanifestationview></updatemanifestationview>'}
 
@@ -53,6 +54,10 @@ const router = new VueRouter({
                 {
                     path: 'Profile',
                     component: ProfileView
+                },
+                {
+                    path: 'AllTickets',
+                    component: AllTicketsView
                 }
             ]
         },
@@ -75,6 +80,10 @@ const router = new VueRouter({
                 {
                     path: 'CreateManifestation',
                     component: CreateManifestation
+                },
+                {
+                    path: 'AllTickets',
+                    component: AllTicketsView
                 },
                 {
                     path: 'SellersManifestations',
@@ -103,7 +112,10 @@ const router = new VueRouter({
                     path: 'ManifestationDetails',
                     component: ManifestationDetailsView
                 },
-
+                {
+                    path: 'AllTickets',
+                    component: AllTicketsView
+                }
             ]
         },
     ]

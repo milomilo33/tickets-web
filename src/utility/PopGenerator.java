@@ -52,13 +52,13 @@ public class PopGenerator {
 
         Manifestation m = new Manifestation(UUID.randomUUID(), "Fated spin", "Wedding", "100", LocalDateTime.now(), 250.0, true, location, imgToString("src/images/wedding.png"), false, 5.4);
         PopStore.getManifestations().add(m);
-        m = new Manifestation(UUID.randomUUID(), "Red Star Match", "Soccer", "1000", LocalDateTime.now(), 150.0, true, location, imgToString("src/images/soccer.png"), false, 9.1);
+        m = new Manifestation(UUID.randomUUID(), "Red Star Match", "Soccer", "1000", LocalDateTime.now().plusDays(14), 150.0, true, location, imgToString("src/images/soccer.png"), false, 9.1);
         PopStore.getManifestations().add(m);
-        m = new Manifestation(UUID.randomUUID(), "Ftn entrance party", "Party", "50", LocalDateTime.now(), 300.0, true, location, imgToString("src/images/party.png"), false, 3.0);
+        m = new Manifestation(UUID.randomUUID(), "Ftn entrance party", "Party", "50", LocalDateTime.now().plusDays(5), 300.0, true, location, imgToString("src/images/party.png"), false, 3.0);
         PopStore.getManifestations().add(m);
-        m = new Manifestation(UUID.randomUUID(), "Dinos Cinema", "Cinema", "75", LocalDateTime.now(), 550.0, true, location, imgToString("src/images/cinema.png"), false, 0.0);
+        m = new Manifestation(UUID.randomUUID(), "Dinos Cinema", "Cinema", "75", LocalDateTime.now().plusDays(8), 550.0, true, location, imgToString("src/images/cinema.png"), false, 0.0);
         PopStore.getManifestations().add(m);
-        m = new Manifestation(UUID.randomUUID(), "Petroland", "Aquapark", "300", LocalDateTime.now(), 400.0, true, location, imgToString("src/images/aquapark.png"), false, 7.7);
+        m = new Manifestation(UUID.randomUUID(), "Petroland", "Aquapark", "300", LocalDateTime.now().plusDays(14), 400.0, true, location, imgToString("src/images/aquapark.png"), false, 7.7);
         PopStore.getManifestations().add(m);
 
         User user = new User(UUID.randomUUID(), "AdminSuperstar", "admin0", "Dragoljub", "Vladin", "Male", "09.03.1981.", UserRole.ADMINISTRATOR, null, null, 0.0, (UserType) PopStore.getUserTypes().toArray()[0], false, false);
@@ -86,7 +86,26 @@ public class PopGenerator {
             PopStore.getUsers().add(user);
         }
 
+        System.out.println(user.getUsername());
         Ticket ticket = new Ticket(UUID.randomUUID(), generateShortId(10),m,LocalDateTime.now(), 400.0, user, TicketStatus.REZERVISANA, TicketType.REGULAR);
+        PopStore.getTickets().add(ticket);
+        Manifestation randomManifestation = PopStore.getManifestations().stream()
+                                    .skip((int) (PopStore.getManifestations().size() * Math.random()))
+                                    .findFirst()
+                                    .orElse(m);
+        ticket = new Ticket(UUID.randomUUID(), generateShortId(10),randomManifestation,randomManifestation.getDate(), randomManifestation.getTicketPrice() * 2, user, TicketStatus.ODUSTANAK, TicketType.FAN_PIT);
+        PopStore.getTickets().add(ticket);
+        randomManifestation = PopStore.getManifestations().stream()
+                .skip((int) (PopStore.getManifestations().size() * Math.random()))
+                .findFirst()
+                .orElse(m);
+        ticket = new Ticket(UUID.randomUUID(), generateShortId(10),randomManifestation,randomManifestation.getDate(), randomManifestation.getTicketPrice(), user, TicketStatus.REZERVISANA, TicketType.REGULAR);
+        PopStore.getTickets().add(ticket);
+        randomManifestation = PopStore.getManifestations().stream()
+                .skip((int) (PopStore.getManifestations().size() * Math.random()))
+                .findFirst()
+                .orElse(m);
+        ticket = new Ticket(UUID.randomUUID(), generateShortId(10),randomManifestation,randomManifestation.getDate(), randomManifestation.getTicketPrice() * 4, user, TicketStatus.REZERVISANA, TicketType.VIP);
         PopStore.getTickets().add(ticket);
 
         Comment comment = new Comment(UUID.randomUUID(), user, m, "sve je bilo super", 10);
