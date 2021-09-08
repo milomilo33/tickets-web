@@ -1,9 +1,9 @@
 [
   {
-    "id": "ebf41368-f708-4e44-ae81-e8f7099c0d1c",
-    "specialId": "kA9yCdhu2S",
+    "id": "7faa8c85-778a-44bb-bd70-6436c4a9654d",
+    "specialId": "6vq4ZGvM6j",
     "manifestation": {
-      "id": "aba8c1a5-2ce1-4ee5-9bfb-29ab28773d13",
+      "id": "33e2dcbe-b924-4180-9e5e-affe568cdeec",
       "name": "Petroland",
       "type": "Aquapark",
       "capacity": "300",
@@ -14,16 +14,16 @@
           "day": 22
         },
         "time": {
-          "hour": 11,
-          "minute": 22,
-          "second": 37,
-          "nano": 535285600
+          "hour": 12,
+          "minute": 57,
+          "second": 19,
+          "nano": 545249400
         }
       },
       "ticketPrice": 400.0,
       "active": true,
       "location": {
-        "id": "1c1985b1-694c-47eb-a3d3-3765a30f06d1",
+        "id": "5e207599-60c4-403b-aff1-0ed0065ef129",
         "latitude": 45.2716,
         "longitude": 19.8478,
         "address": "Novi Sad"
@@ -35,18 +35,18 @@
       "date": {
         "year": 2021,
         "month": 9,
-        "day": 8
+        "day": 22
       },
       "time": {
-        "hour": 11,
-        "minute": 22,
-        "second": 37,
-        "nano": 579284700
+        "hour": 12,
+        "minute": 57,
+        "second": 19,
+        "nano": 545249400
       }
     },
     "price": 400.0,
     "buyer": {
-      "id": "38968bb1-c94c-4dec-bcec-e0bd43fee10d",
+      "id": "7aadd828-38da-45cb-b849-f07e0aed02eb",
       "username": "RandomBuyer9",
       "password": "buyer9",
       "name": "Boba9",
@@ -56,7 +56,7 @@
       "role": "KUPAC",
       "points": 15005.0,
       "type": {
-        "id": "fb31efe3-48ce-41df-95f2-7c5001e1b253",
+        "id": "e478bc8d-82b0-4584-80e8-2f8fd6dedbd3",
         "name": "GOLD",
         "discount": 0.8,
         "threshold": 15000.0
@@ -69,53 +69,53 @@
     "deleted": false
   },
   {
-    "id": "042319a6-0cbe-4e64-bfbb-ce14324c8e5e",
-    "specialId": "RC8t6cbUeV",
+    "id": "3bc23615-eb9c-4e09-9ffb-3d440a7ad597",
+    "specialId": "HXvyOcKMD6",
     "manifestation": {
-      "id": "ff5c3044-681c-4e9e-bcbd-5817d11cf337",
-      "name": "Ftn entrance party",
-      "type": "Party",
-      "capacity": "50",
+      "id": "e7151f76-b33e-4543-a3a7-020b33d0c82b",
+      "name": "Red Star Match",
+      "type": "Soccer",
+      "capacity": "1000",
       "date": {
         "date": {
           "year": 2021,
           "month": 9,
-          "day": 13
+          "day": 22
         },
         "time": {
-          "hour": 11,
-          "minute": 22,
-          "second": 37,
-          "nano": 508785600
+          "hour": 12,
+          "minute": 57,
+          "second": 19,
+          "nano": 480749400
         }
       },
-      "ticketPrice": 300.0,
+      "ticketPrice": 150.0,
       "active": true,
       "location": {
-        "id": "1c1985b1-694c-47eb-a3d3-3765a30f06d1",
+        "id": "5e207599-60c4-403b-aff1-0ed0065ef129",
         "latitude": 45.2716,
         "longitude": 19.8478,
         "address": "Novi Sad"
       },
       "deleted": false,
-      "rating": 3.0
+      "rating": 9.1
     },
     "date": {
       "date": {
         "year": 2021,
         "month": 9,
-        "day": 13
+        "day": 22
       },
       "time": {
-        "hour": 11,
-        "minute": 22,
-        "second": 37,
-        "nano": 508785600
+        "hour": 12,
+        "minute": 57,
+        "second": 19,
+        "nano": 480749400
       }
     },
-    "price": 600.0,
+    "price": 300.0,
     "buyer": {
-      "id": "38968bb1-c94c-4dec-bcec-e0bd43fee10d",
+      "id": "7aadd828-38da-45cb-b849-f07e0aed02eb",
       "username": "RandomBuyer9",
       "password": "buyer9",
       "name": "Boba9",
@@ -125,7 +125,7 @@
       "role": "KUPAC",
       "points": 15005.0,
       "type": {
-        "id": "fb31efe3-48ce-41df-95f2-7c5001e1b253",
+        "id": "e478bc8d-82b0-4584-80e8-2f8fd6dedbd3",
         "name": "GOLD",
         "discount": 0.8,
         "threshold": 15000.0
@@ -138,79 +138,10 @@
     "deleted": false
   },
   {
-    "id": "2311fc0e-798a-4945-95c2-be77968ff9ef",
-    "specialId": "64UUsS3hY3",
+    "id": "32aa9d80-dd8a-4743-aa7a-c56afc653ea5",
+    "specialId": "ALTdruOO5R",
     "manifestation": {
-      "id": "b6cbcdef-c481-4602-88c8-3db7ff313b64",
-      "name": "Dinos Cinema",
-      "type": "Cinema",
-      "capacity": "75",
-      "date": {
-        "date": {
-          "year": 2021,
-          "month": 9,
-          "day": 16
-        },
-        "time": {
-          "hour": 11,
-          "minute": 22,
-          "second": 37,
-          "nano": 523285200
-        }
-      },
-      "ticketPrice": 550.0,
-      "active": true,
-      "location": {
-        "id": "1c1985b1-694c-47eb-a3d3-3765a30f06d1",
-        "latitude": 45.2716,
-        "longitude": 19.8478,
-        "address": "Novi Sad"
-      },
-      "deleted": false,
-      "rating": 0.0
-    },
-    "date": {
-      "date": {
-        "year": 2021,
-        "month": 9,
-        "day": 16
-      },
-      "time": {
-        "hour": 11,
-        "minute": 22,
-        "second": 37,
-        "nano": 523285200
-      }
-    },
-    "price": 550.0,
-    "buyer": {
-      "id": "38968bb1-c94c-4dec-bcec-e0bd43fee10d",
-      "username": "RandomBuyer9",
-      "password": "buyer9",
-      "name": "Boba9",
-      "surname": "Bobic9",
-      "gender": "Male",
-      "birth": "09.09.1995.",
-      "role": "KUPAC",
-      "points": 15005.0,
-      "type": {
-        "id": "fb31efe3-48ce-41df-95f2-7c5001e1b253",
-        "name": "GOLD",
-        "discount": 0.8,
-        "threshold": 15000.0
-      },
-      "blocked": false,
-      "deleted": false
-    },
-    "status": "REZERVISANA",
-    "type": "REGULAR",
-    "deleted": false
-  },
-  {
-    "id": "9dd9db6c-d6f0-430b-b713-328566d9d888",
-    "specialId": "Zk1t1t8sB2",
-    "manifestation": {
-      "id": "ff5c3044-681c-4e9e-bcbd-5817d11cf337",
+      "id": "b64e676e-a8bc-4d2d-ad4d-48bb0d37f34c",
       "name": "Ftn entrance party",
       "type": "Party",
       "capacity": "50",
@@ -221,16 +152,16 @@
           "day": 13
         },
         "time": {
-          "hour": 11,
-          "minute": 22,
-          "second": 37,
-          "nano": 508785600
+          "hour": 12,
+          "minute": 57,
+          "second": 19,
+          "nano": 515250900
         }
       },
       "ticketPrice": 300.0,
       "active": true,
       "location": {
-        "id": "1c1985b1-694c-47eb-a3d3-3765a30f06d1",
+        "id": "5e207599-60c4-403b-aff1-0ed0065ef129",
         "latitude": 45.2716,
         "longitude": 19.8478,
         "address": "Novi Sad"
@@ -245,15 +176,15 @@
         "day": 13
       },
       "time": {
-        "hour": 11,
-        "minute": 22,
-        "second": 37,
-        "nano": 508785600
+        "hour": 12,
+        "minute": 57,
+        "second": 19,
+        "nano": 515250900
       }
     },
-    "price": 1200.0,
+    "price": 300.0,
     "buyer": {
-      "id": "38968bb1-c94c-4dec-bcec-e0bd43fee10d",
+      "id": "7aadd828-38da-45cb-b849-f07e0aed02eb",
       "username": "RandomBuyer9",
       "password": "buyer9",
       "name": "Boba9",
@@ -263,7 +194,76 @@
       "role": "KUPAC",
       "points": 15005.0,
       "type": {
-        "id": "fb31efe3-48ce-41df-95f2-7c5001e1b253",
+        "id": "e478bc8d-82b0-4584-80e8-2f8fd6dedbd3",
+        "name": "GOLD",
+        "discount": 0.8,
+        "threshold": 15000.0
+      },
+      "blocked": false,
+      "deleted": false
+    },
+    "status": "REZERVISANA",
+    "type": "REGULAR",
+    "deleted": false
+  },
+  {
+    "id": "93cefd62-1654-46df-9a24-fa4ba6cb0b0c",
+    "specialId": "RFk8f6tLs3",
+    "manifestation": {
+      "id": "00f1a70f-9dc4-49d0-932d-e85d62e13990",
+      "name": "Fated spin",
+      "type": "Wedding",
+      "capacity": "100",
+      "date": {
+        "date": {
+          "year": 2021,
+          "month": 9,
+          "day": 8
+        },
+        "time": {
+          "hour": 12,
+          "minute": 57,
+          "second": 19,
+          "nano": 437248900
+        }
+      },
+      "ticketPrice": 250.0,
+      "active": true,
+      "location": {
+        "id": "5e207599-60c4-403b-aff1-0ed0065ef129",
+        "latitude": 45.2716,
+        "longitude": 19.8478,
+        "address": "Novi Sad"
+      },
+      "deleted": false,
+      "rating": 5.4
+    },
+    "date": {
+      "date": {
+        "year": 2021,
+        "month": 9,
+        "day": 8
+      },
+      "time": {
+        "hour": 12,
+        "minute": 57,
+        "second": 19,
+        "nano": 437248900
+      }
+    },
+    "price": 1000.0,
+    "buyer": {
+      "id": "7aadd828-38da-45cb-b849-f07e0aed02eb",
+      "username": "RandomBuyer9",
+      "password": "buyer9",
+      "name": "Boba9",
+      "surname": "Bobic9",
+      "gender": "Male",
+      "birth": "09.09.1995.",
+      "role": "KUPAC",
+      "points": 15005.0,
+      "type": {
+        "id": "e478bc8d-82b0-4584-80e8-2f8fd6dedbd3",
         "name": "GOLD",
         "discount": 0.8,
         "threshold": 15000.0

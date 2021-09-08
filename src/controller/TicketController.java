@@ -9,6 +9,8 @@ import storage.PopStore;
 import utility.PopGenerator;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -251,6 +253,48 @@ public class TicketController {
         }
         else
             res.status(400);
+
+        return res;
+    });
+
+    public static Route CheckCancellable = ((req, res) -> {
+        UUID ticketId = UUID.fromString(req.params(":id"));
+
+        Ticket ticket = PopStore.getTickets().stream().filter(t -> t.getId().equals(ticketId)).collect(Collectors.toList()).get(0);
+        LocalDateTime eventDate = ticket.getManifestation().getDate();
+        long days = LocalDateTime.now().until(eventDate, ChronoUnit.DAYS);
+
+        if (days < 7)
+            res.status(400);
+        else
+            res.status(200);
+
+        return res;
+    });
+
+    public static Route CancelTicket = ((req, res) -> {
+        UUID ticketId = UUID.fromString(req.params(":id"));
+
+        Ticket ticket = PopStore.getTickets().stream().filter(t -> t.getId().equals(ticketId)).collect(Collectors.toList()).get(0);
+        ticket.setStatus(TicketStatus.ODUSTANAK);
+
+        double lostPoints = ticket.getPrice() / 1000 * 133 * 4;
+        PopStore.getCurrentUser().setPoints(PopStore.getCurrentUser().getPoints() - lostPoints);
+        if (PopStore.getCurrentUser().getType().getThreshold() > PopStore.getCurrentUser().getPoints()) {
+            UserType maxThresholdType = null;
+            for (var userType : PopStore.getUserTypes()) {
+                if (userType.getThreshold() <= PopStore.getCurrentUser().getPoints()) {
+                    if (maxThresholdType == null)
+                        maxThresholdType = userType;
+                    else if (userType.getThreshold() > maxThresholdType.getThreshold())
+                        maxThresholdType = userType;
+                }
+            }
+            PopStore.getCurrentUser().setType(maxThresholdType);
+        }
+
+        res.body(String.valueOf(lostPoints));
+        res.status(200);
 
         return res;
     });

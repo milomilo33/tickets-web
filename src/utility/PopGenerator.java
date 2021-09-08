@@ -90,7 +90,7 @@ public class PopGenerator {
         System.out.println(user.getUsername());
         System.out.println(user.getType());
         System.out.println(user.getPoints());
-        Ticket ticket = new Ticket(UUID.randomUUID(), generateShortId(10),m,LocalDateTime.now(), 400.0, user, TicketStatus.REZERVISANA, TicketType.REGULAR);
+        Ticket ticket = new Ticket(UUID.randomUUID(), generateShortId(10),m,m.getDate(), 400.0, user, TicketStatus.REZERVISANA, TicketType.REGULAR);
         PopStore.getTickets().add(ticket);
         Manifestation randomManifestation = PopStore.getManifestations().stream()
                                     .skip((int) (PopStore.getManifestations().size() * Math.random()))
