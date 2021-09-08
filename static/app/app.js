@@ -79,6 +79,10 @@ const router = new VueRouter({
                     path: 'CreateManifestation',
                     component: CreateManifestation
                 },
+                {
+                    path: 'AllTickets',
+                    component: AllTicketsView
+                }
             ]
         },
         {
@@ -98,7 +102,10 @@ const router = new VueRouter({
                     path: 'ManifestationDetails',
                     component: ManifestationDetailsView
                 },
-
+                {
+                    path: 'AllTickets',
+                    component: AllTicketsView
+                }
             ]
         },
     ]

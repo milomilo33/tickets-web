@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import domain.Manifestation;
 import domain.Ticket;
 import domain.TicketStatus;
+import domain.UserRole;
 import javaxt.utils.string;
 import spark.Route;
 import storage.PopStore;
@@ -23,6 +24,14 @@ public class TicketController {
                 tickets = GetAllTicketsForBuyer();
                 res.status(200);
                 break;
+            case PRODAVAC:
+                tickets = GetAllTicketsForSeller();
+                res.status(200);
+                break;
+            case ADMINISTRATOR:
+                tickets = GetAllTicketsForAdmin();
+                res.status(200);
+                break;
             default:
                 res.status(400);
                 break;
@@ -40,11 +49,35 @@ public class TicketController {
                         .collect(Collectors.toList());
     }
 
+    private static List<Ticket> GetAllTicketsForSeller() {
+        return PopStore.getTickets()
+                .stream()
+                .filter(ticket -> !ticket.getDeleted())
+                .filter(ticket -> PopStore.getCurrentUser().getManifestations().contains(ticket.getManifestation()))
+                .filter(ticket -> ticket.getStatus() == TicketStatus.REZERVISANA)
+                .collect(Collectors.toList());
+    }
+
+    private static List<Ticket> GetAllTicketsForAdmin() {
+        return PopStore.getTickets()
+                .stream()
+                .filter(ticket -> !ticket.getDeleted())
+                .collect(Collectors.toList());
+    }
+
     public static Route SearchAllTickets = ((req, res) -> {
         List<Ticket> tickets = null;
         switch (PopStore.getCurrentUser().getRole()) {
             case KUPAC:
                 tickets = GetAllTicketsForBuyer();
+                res.status(200);
+                break;
+            case PRODAVAC:
+                tickets = GetAllTicketsForSeller();
+                res.status(200);
+                break;
+            case ADMINISTRATOR:
+                tickets = GetAllTicketsForAdmin();
                 res.status(200);
                 break;
             default:
@@ -70,9 +103,11 @@ public class TicketController {
                 .filter(ticket -> ticket.getPrice() <= Double.parseDouble(searchParams.getOrDefault("priceTo", "99999999")))
                 .filter(ticket -> ticket.getType().name().toLowerCase().contains(searchParams.get("typeSelected").toLowerCase()))
                 .filter(ticket -> {
-                    Boolean onlyReserved = Boolean.parseBoolean(searchParams.get("onlyReserved"));
-                    if (onlyReserved.equals(true)) {
-                        return ticket.getStatus() == TicketStatus.REZERVISANA;
+                    if (PopStore.getCurrentUser().getRole() != UserRole.PRODAVAC) {
+                        Boolean onlyReserved = Boolean.parseBoolean(searchParams.get("onlyReserved"));
+                        if (onlyReserved.equals(true)) {
+                            return ticket.getStatus() == TicketStatus.REZERVISANA;
+                        }
                     }
                     return true;
                 })

@@ -25,6 +25,7 @@ Vue.component('allticketsview', {
                 onlyReserved: '',
                 priceFrom: 0.0,
                 priceTo: 999999.0,
+                role: ''
             };
         },
 
@@ -51,7 +52,7 @@ Vue.component('allticketsview', {
             <b-form-group label="Filters: " label-class="font-weight-bold">
                 <b-form-select class="mb-2 mr-sm-2 mb-sm-0" :options="types" v-model="typeSelected"></b-form-select>
             </b-form-group>
-            <b-form-checkbox v-model="onlyReserved" class="pt-4">Show only reserved tickets</b-form-checkbox>
+            <b-form-checkbox v-model="onlyReserved" class="pt-4" v-if="this.role !== 'seller'">Show only reserved tickets</b-form-checkbox>
         </b-form>
         <br/>
         <b-card-group deck>
@@ -67,6 +68,7 @@ Vue.component('allticketsview', {
             class="mb-2"
           >
             <b-list-group flush>
+              <b-list-group-item v-if="this.role !== 'buyer'">Ticket owner: {{t.buyer.username}}</b-list-group-item>
               <b-list-group-item>Ticket type: {{t.type}}</b-list-group-item>
               <b-list-group-item>Date of manifestation: {{dateTimeToDate(t.date)}} at {{dateTimeToTime(t.date)}}</b-list-group-item>
               <b-list-group-item>Ticket price: {{t.price}} RSD</b-list-group-item>
@@ -122,6 +124,16 @@ Vue.component('allticketsview', {
                     self.tickets = response.data;
                 })
                 .catch(error => console.log(error));
+
+            if (this.$route.path.includes("BuyerView"))
+                this.role = "buyer";
+            else if (this.$route.path.includes("AdminView"))
+                this.role = "admin";
+            else if ((this.$route.path.includes("SellerView")))
+                this.role = "seller";
+
+            if (this.role === "seller")
+                this.onlyReserved = "true";
         }
 
     }

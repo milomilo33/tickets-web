@@ -14,7 +14,7 @@ Vue.component('adminview', {
                         <b-collapse id="nav-collapse" is-nav>
                         <b-navbar-nav>
                           <b-nav-item href="">Placeholder #1</b-nav-item>
-                          <b-nav-item href="">Placeholder #2</b-nav-item>
+                          <b-nav-item href="/#/AdminView/AllTickets">Tickets</b-nav-item>
                             <b-nav-item-dropdown text="Dropdown placeholder" left>
                                 <b-dropdown-item href="">Option uno</b-dropdown-item>
                                 <b-dropdown-item href="">Option dos</b-dropdown-item>
