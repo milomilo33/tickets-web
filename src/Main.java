@@ -52,6 +52,7 @@ public class Main {
         get("/api/manifestationcomments/:id", ManifestationController.GetCommentsForManifestation);
         get("/api/alltickets", TicketController.GetAllTickets);
         get("/api/ticketsearch", TicketController.SearchAllTickets);
+        get("/api/checkreservationquantityandprice", TicketController.CheckReservationQuantityAndPrice);
 
         post("/api/buyers/register", UserController.RegisterBuyer);
         post("/api/login", UserController.Login);
@@ -61,6 +62,7 @@ public class Main {
         post("/api/activatemanifestation/:id", ManifestationController.ActivateManifestation);
         post("/api/deletemanifestation/:id", ManifestationController.DeleteManifestation);
         post("/api/updatemanifestation", ManifestationController.UpdateManifestation);
+        post("/api/makereservation", TicketController.MakeReservation);
     }
 
 }

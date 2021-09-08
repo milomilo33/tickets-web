@@ -40,11 +40,11 @@ public class PopGenerator {
         PopStore.setTickets(new ArrayList<>());
         PopStore.setUserTypes(new ArrayList<>());
 
-        UserType u = new UserType(UUID.randomUUID(), "BRONZE", 0.95, 20.0 );
+        UserType u = new UserType(UUID.randomUUID(), "BRONZE", 0.95, 2000.0 );
         PopStore.getUserTypes().add(u);
-        u = new UserType(UUID.randomUUID(), "SILVER", 0.88, 50.0);
+        u = new UserType(UUID.randomUUID(), "SILVER", 0.88, 5000.0);
         PopStore.getUserTypes().add(u);
-        u = new UserType(UUID.randomUUID(), "GOLD", 0.80, 100.0);
+        u = new UserType(UUID.randomUUID(), "GOLD", 0.80, 15000.0);
         PopStore.getUserTypes().add(u);
         UserType t = (UserType) PopStore.getUserTypes().toArray()[0];
 
@@ -81,12 +81,15 @@ public class PopGenerator {
                 typenum = 1;
             else
                 typenum = 2;
+            UserType type = (UserType) PopStore.getUserTypes().toArray()[typenum];
             user = new User(UUID.randomUUID(), "RandomBuyer" + i, "buyer" + i, "Boba" + i, "Bobic" + i, "Male", "0"+i+".0"+i+".1995.", UserRole.KUPAC, new ArrayList<>(),
-                    null, points, (UserType) PopStore.getUserTypes().toArray()[typenum], false, false);
+                    null, type.getThreshold() + 5, type, false, false);
             PopStore.getUsers().add(user);
         }
 
         System.out.println(user.getUsername());
+        System.out.println(user.getType());
+        System.out.println(user.getPoints());
         Ticket ticket = new Ticket(UUID.randomUUID(), generateShortId(10),m,LocalDateTime.now(), 400.0, user, TicketStatus.REZERVISANA, TicketType.REGULAR);
         PopStore.getTickets().add(ticket);
         Manifestation randomManifestation = PopStore.getManifestations().stream()

@@ -3,6 +3,7 @@ package controller;
 import com.google.gson.Gson;
 import domain.Location;
 import domain.Manifestation;
+import domain.TicketStatus;
 import domain.UserRole;
 import spark.Route;
 import storage.PopStore;
@@ -180,7 +181,11 @@ public class ManifestationController {
     public static Route GetRemainingTickets = ((req, res) -> {
         res.status(200);
         Manifestation m = PopStore.getManifestations().stream().filter(manifestation -> manifestation.getId().equals(UUID.fromString(req.params(":id")))).collect(Collectors.toList()).get(0);
-        Long rem = Integer.parseInt(m.getCapacity()) - PopStore.getTickets().stream().filter(ticket -> ticket.getManifestation().getId().equals(m.getId())).count();
+        Long rem = Integer.parseInt(m.getCapacity()) - PopStore.getTickets().stream()
+                .filter(ticket -> ticket.getManifestation().getId().equals(m.getId()))
+                .filter(ticket -> !ticket.getDeleted())
+                .filter(ticket -> ticket.getStatus() == TicketStatus.REZERVISANA)
+                .count();
         res.body(gson.toJson(rem));
         return res;
     });

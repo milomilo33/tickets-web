@@ -1,1 +1,268 @@
-[{"id":"2a489ee3-739f-4935-9ec3-7e49dd2a3205","username":"AdminSuperstar","password":"admin0","name":"Dragoljub","surname":"Vladin","gender":"Male","birth":"09.03.1981.","role":"ADMINISTRATOR","points":0.0,"type":{"id":"da145d25-642b-4352-9b51-0e6d458c8d22","name":"BRONZE","discount":0.95,"threshold":20.0},"blocked":false,"deleted":false},{"id":"8b49804c-9060-4428-b27e-73c3fce7a606","username":"SellerGenius0","password":"seller0","name":"Visnja","surname":"Iljin","gender":"Female","birth":"02.01.1951.","role":"PRODAVAC","points":0.0,"type":{"id":"da145d25-642b-4352-9b51-0e6d458c8d22","name":"BRONZE","discount":0.95,"threshold":20.0},"blocked":false,"deleted":false},{"id":"1753a54c-1e20-484c-b429-587f660b0f61","username":"SellerGenius1","password":"seller1","name":"Slavica","surname":"Travic","gender":"Female","birth":"02.01.1954.","role":"PRODAVAC","points":0.0,"type":{"id":"da145d25-642b-4352-9b51-0e6d458c8d22","name":"BRONZE","discount":0.95,"threshold":20.0},"blocked":false,"deleted":false},{"id":"de054a09-f244-4f7b-a3fb-c4ac9844f9c8","username":"SellerGenius2","password":"seller2","name":"Vesna","surname":"Babic","gender":"Female","birth":"02.01.1952.","role":"PRODAVAC","points":0.0,"type":{"id":"da145d25-642b-4352-9b51-0e6d458c8d22","name":"BRONZE","discount":0.95,"threshold":20.0},"blocked":false,"deleted":false},{"id":"f8ee6e1f-2210-4773-9a51-bf7420661e63","username":"RandomBuyer0","password":"buyer0","name":"Boba0","surname":"Bobic0","gender":"Male","birth":"00.00.1995.","role":"KUPAC","points":0.0,"type":{"id":"da145d25-642b-4352-9b51-0e6d458c8d22","name":"BRONZE","discount":0.95,"threshold":20.0},"blocked":false,"deleted":false},{"id":"5496bb23-b151-42c3-b57d-9601fcae03db","username":"RandomBuyer1","password":"buyer1","name":"Boba1","surname":"Bobic1","gender":"Male","birth":"01.01.1995.","role":"KUPAC","points":12.0,"type":{"id":"da145d25-642b-4352-9b51-0e6d458c8d22","name":"BRONZE","discount":0.95,"threshold":20.0},"blocked":false,"deleted":false},{"id":"254277d3-c4a7-41f1-b6b2-abab4df27e71","username":"RandomBuyer2","password":"buyer2","name":"Boba2","surname":"Bobic2","gender":"Male","birth":"02.02.1995.","role":"KUPAC","points":24.0,"type":{"id":"001fe814-1fd9-4907-9654-d292cdcc344c","name":"SILVER","discount":0.88,"threshold":50.0},"blocked":false,"deleted":false},{"id":"016f5ee1-4646-464d-98f1-87034834f3b9","username":"RandomBuyer3","password":"buyer3","name":"Boba3","surname":"Bobic3","gender":"Male","birth":"03.03.1995.","role":"KUPAC","points":36.0,"type":{"id":"001fe814-1fd9-4907-9654-d292cdcc344c","name":"SILVER","discount":0.88,"threshold":50.0},"blocked":false,"deleted":false},{"id":"b66a663f-97c0-4384-a6de-af91ff6ef5d6","username":"RandomBuyer4","password":"buyer4","name":"Boba4","surname":"Bobic4","gender":"Male","birth":"04.04.1995.","role":"KUPAC","points":48.0,"type":{"id":"001fe814-1fd9-4907-9654-d292cdcc344c","name":"SILVER","discount":0.88,"threshold":50.0},"blocked":false,"deleted":false},{"id":"635e06a6-bce4-4fe7-a73d-d3e90ab98fe4","username":"RandomBuyer5","password":"buyer5","name":"Boba5","surname":"Bobic5","gender":"Male","birth":"05.05.1995.","role":"KUPAC","points":60.0,"type":{"id":"56ff61d2-0d6e-459e-9d21-ad9bd25930e1","name":"GOLD","discount":0.8,"threshold":100.0},"blocked":false,"deleted":false},{"id":"0cb51cc5-aa06-4f50-9a83-e9c0dfe9f579","username":"RandomBuyer6","password":"buyer6","name":"Boba6","surname":"Bobic6","gender":"Male","birth":"06.06.1995.","role":"KUPAC","points":72.0,"type":{"id":"56ff61d2-0d6e-459e-9d21-ad9bd25930e1","name":"GOLD","discount":0.8,"threshold":100.0},"blocked":false,"deleted":false},{"id":"bb637b8a-9052-49df-9934-3fd17a35074e","username":"RandomBuyer7","password":"buyer7","name":"Boba7","surname":"Bobic7","gender":"Male","birth":"07.07.1995.","role":"KUPAC","points":84.0,"type":{"id":"56ff61d2-0d6e-459e-9d21-ad9bd25930e1","name":"GOLD","discount":0.8,"threshold":100.0},"blocked":false,"deleted":false},{"id":"eefdca02-5610-430f-ad0a-44a30218edbb","username":"RandomBuyer8","password":"buyer8","name":"Boba8","surname":"Bobic8","gender":"Male","birth":"08.08.1995.","role":"KUPAC","points":96.0,"type":{"id":"56ff61d2-0d6e-459e-9d21-ad9bd25930e1","name":"GOLD","discount":0.8,"threshold":100.0},"blocked":false,"deleted":false},{"id":"adc06510-620a-494c-9286-85252437484e","username":"RandomBuyer9","password":"buyer9","name":"Boba9","surname":"Bobic9","gender":"Male","birth":"09.09.1995.","role":"KUPAC","points":108.0,"type":{"id":"56ff61d2-0d6e-459e-9d21-ad9bd25930e1","name":"GOLD","discount":0.8,"threshold":100.0},"blocked":false,"deleted":false}]
+[
+  {
+    "id": "90cfb4cd-d085-47fe-a13c-6b76237820f0",
+    "username": "AdminSuperstar",
+    "password": "admin0",
+    "name": "Dragoljub",
+    "surname": "Vladin",
+    "gender": "Male",
+    "birth": "09.03.1981.",
+    "role": "ADMINISTRATOR",
+    "points": 0.0,
+    "type": {
+      "id": "144a2585-d915-4f30-a929-3a33e771e99a",
+      "name": "BRONZE",
+      "discount": 0.95,
+      "threshold": 2000.0
+    },
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "id": "b22c2d9b-54d3-433b-93f3-12b951ccf092",
+    "username": "SellerGenius0",
+    "password": "seller0",
+    "name": "Visnja",
+    "surname": "Iljin",
+    "gender": "Female",
+    "birth": "02.01.1951.",
+    "role": "PRODAVAC",
+    "points": 0.0,
+    "type": {
+      "id": "144a2585-d915-4f30-a929-3a33e771e99a",
+      "name": "BRONZE",
+      "discount": 0.95,
+      "threshold": 2000.0
+    },
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "id": "5bed9146-7ce3-49f1-9e2b-c035cd73f3e4",
+    "username": "SellerGenius1",
+    "password": "seller1",
+    "name": "Slavica",
+    "surname": "Travic",
+    "gender": "Female",
+    "birth": "02.01.1954.",
+    "role": "PRODAVAC",
+    "points": 0.0,
+    "type": {
+      "id": "144a2585-d915-4f30-a929-3a33e771e99a",
+      "name": "BRONZE",
+      "discount": 0.95,
+      "threshold": 2000.0
+    },
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "id": "322862f4-007e-4413-8aed-ca9ed8bdd76a",
+    "username": "SellerGenius2",
+    "password": "seller2",
+    "name": "Vesna",
+    "surname": "Babic",
+    "gender": "Female",
+    "birth": "02.01.1952.",
+    "role": "PRODAVAC",
+    "points": 0.0,
+    "type": {
+      "id": "144a2585-d915-4f30-a929-3a33e771e99a",
+      "name": "BRONZE",
+      "discount": 0.95,
+      "threshold": 2000.0
+    },
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "id": "116a64fd-a789-4803-a88d-d9c24deac66f",
+    "username": "RandomBuyer0",
+    "password": "buyer0",
+    "name": "Boba0",
+    "surname": "Bobic0",
+    "gender": "Male",
+    "birth": "00.00.1995.",
+    "role": "KUPAC",
+    "points": 2005.0,
+    "type": {
+      "id": "144a2585-d915-4f30-a929-3a33e771e99a",
+      "name": "BRONZE",
+      "discount": 0.95,
+      "threshold": 2000.0
+    },
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "id": "2bf7c801-52bd-4309-9871-a519f38d43c0",
+    "username": "RandomBuyer1",
+    "password": "buyer1",
+    "name": "Boba1",
+    "surname": "Bobic1",
+    "gender": "Male",
+    "birth": "01.01.1995.",
+    "role": "KUPAC",
+    "points": 2005.0,
+    "type": {
+      "id": "144a2585-d915-4f30-a929-3a33e771e99a",
+      "name": "BRONZE",
+      "discount": 0.95,
+      "threshold": 2000.0
+    },
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "id": "b08363ec-ea08-4c01-aebc-2b075941b561",
+    "username": "RandomBuyer2",
+    "password": "buyer2",
+    "name": "Boba2",
+    "surname": "Bobic2",
+    "gender": "Male",
+    "birth": "02.02.1995.",
+    "role": "KUPAC",
+    "points": 5005.0,
+    "type": {
+      "id": "00d86f23-4b7f-4d51-baef-6165c016128b",
+      "name": "SILVER",
+      "discount": 0.88,
+      "threshold": 5000.0
+    },
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "id": "765ba8d4-b4c7-4955-82bb-e1cab1c5ba31",
+    "username": "RandomBuyer3",
+    "password": "buyer3",
+    "name": "Boba3",
+    "surname": "Bobic3",
+    "gender": "Male",
+    "birth": "03.03.1995.",
+    "role": "KUPAC",
+    "points": 5005.0,
+    "type": {
+      "id": "00d86f23-4b7f-4d51-baef-6165c016128b",
+      "name": "SILVER",
+      "discount": 0.88,
+      "threshold": 5000.0
+    },
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "id": "d6f629d6-3eab-454f-95ca-7d22556672bf",
+    "username": "RandomBuyer4",
+    "password": "buyer4",
+    "name": "Boba4",
+    "surname": "Bobic4",
+    "gender": "Male",
+    "birth": "04.04.1995.",
+    "role": "KUPAC",
+    "points": 5005.0,
+    "type": {
+      "id": "00d86f23-4b7f-4d51-baef-6165c016128b",
+      "name": "SILVER",
+      "discount": 0.88,
+      "threshold": 5000.0
+    },
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "id": "ebdb5d15-285d-43fd-bafd-f2e1e95647d1",
+    "username": "RandomBuyer5",
+    "password": "buyer5",
+    "name": "Boba5",
+    "surname": "Bobic5",
+    "gender": "Male",
+    "birth": "05.05.1995.",
+    "role": "KUPAC",
+    "points": 15005.0,
+    "type": {
+      "id": "fb31efe3-48ce-41df-95f2-7c5001e1b253",
+      "name": "GOLD",
+      "discount": 0.8,
+      "threshold": 15000.0
+    },
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "id": "38eee81a-f629-4e7e-ba18-c2e9a68512c6",
+    "username": "RandomBuyer6",
+    "password": "buyer6",
+    "name": "Boba6",
+    "surname": "Bobic6",
+    "gender": "Male",
+    "birth": "06.06.1995.",
+    "role": "KUPAC",
+    "points": 15005.0,
+    "type": {
+      "id": "fb31efe3-48ce-41df-95f2-7c5001e1b253",
+      "name": "GOLD",
+      "discount": 0.8,
+      "threshold": 15000.0
+    },
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "id": "976de60c-b356-400e-aa58-2ee67d51b59c",
+    "username": "RandomBuyer7",
+    "password": "buyer7",
+    "name": "Boba7",
+    "surname": "Bobic7",
+    "gender": "Male",
+    "birth": "07.07.1995.",
+    "role": "KUPAC",
+    "points": 15005.0,
+    "type": {
+      "id": "fb31efe3-48ce-41df-95f2-7c5001e1b253",
+      "name": "GOLD",
+      "discount": 0.8,
+      "threshold": 15000.0
+    },
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "id": "7177630a-9afb-4ec8-bfa0-c0d2f6ed54ca",
+    "username": "RandomBuyer8",
+    "password": "buyer8",
+    "name": "Boba8",
+    "surname": "Bobic8",
+    "gender": "Male",
+    "birth": "08.08.1995.",
+    "role": "KUPAC",
+    "points": 15005.0,
+    "type": {
+      "id": "fb31efe3-48ce-41df-95f2-7c5001e1b253",
+      "name": "GOLD",
+      "discount": 0.8,
+      "threshold": 15000.0
+    },
+    "blocked": false,
+    "deleted": false
+  },
+  {
+    "id": "38968bb1-c94c-4dec-bcec-e0bd43fee10d",
+    "username": "RandomBuyer9",
+    "password": "buyer9",
+    "name": "Boba9",
+    "surname": "Bobic9",
+    "gender": "Male",
+    "birth": "09.09.1995.",
+    "role": "KUPAC",
+    "points": 15005.0,
+    "type": {
+      "id": "fb31efe3-48ce-41df-95f2-7c5001e1b253",
+      "name": "GOLD",
+      "discount": 0.8,
+      "threshold": 15000.0
+    },
+    "blocked": false,
+    "deleted": false
+  }
+]
