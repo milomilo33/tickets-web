@@ -50,7 +50,7 @@ public class PopGenerator {
 
         Location location = new Location(UUID.randomUUID(), 45.2716, 19.8478, "Novi Sad");
 
-        Manifestation m = new Manifestation(UUID.randomUUID(), "Fated spin", "Wedding", "100", LocalDateTime.now(), 250.0, true, location, imgToString("src/images/wedding.png"), false, 5.4);
+        Manifestation m = new Manifestation(UUID.randomUUID(), "Fated spin", "Wedding", "100", LocalDateTime.now(), 250.0, true, location, imgToString("src/images/wedding.png"), false, 0.0);
         PopStore.getManifestations().add(m);
         m = new Manifestation(UUID.randomUUID(), "Red Star Match", "Soccer", "1000", LocalDateTime.now().plusDays(14), 150.0, true, location, imgToString("src/images/soccer.png"), false, 9.1);
         PopStore.getManifestations().add(m);
@@ -89,6 +89,7 @@ public class PopGenerator {
         System.out.println(user.getUsername());
         Ticket ticket = new Ticket(UUID.randomUUID(), generateShortId(10),m,LocalDateTime.now(), 400.0, user, TicketStatus.REZERVISANA, TicketType.REGULAR);
         PopStore.getTickets().add(ticket);
+        user.getTickets().add(ticket);
         Manifestation randomManifestation = PopStore.getManifestations().stream()
                                     .skip((int) (PopStore.getManifestations().size() * Math.random()))
                                     .findFirst()
@@ -108,7 +109,7 @@ public class PopGenerator {
         ticket = new Ticket(UUID.randomUUID(), generateShortId(10),randomManifestation,randomManifestation.getDate(), randomManifestation.getTicketPrice() * 4, user, TicketStatus.REZERVISANA, TicketType.VIP);
         PopStore.getTickets().add(ticket);
 
-        Comment comment = new Comment(UUID.randomUUID(), user, m, "sve je bilo super", 10);
+        Comment comment = new Comment(UUID.randomUUID(), user, m, "sve je bilo super", 10, false, false);
         PopStore.getComments().add(comment);
     }
 }
