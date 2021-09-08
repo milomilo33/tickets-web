@@ -1,4 +1,5 @@
 import com.google.gson.Gson;
+import controller.CommentController;
 import controller.ManifestationController;
 import storage.PopStore;
 import utility.PopGenerator;
@@ -48,6 +49,7 @@ public class Main {
         get("/api/manifestationdetails/:id", ManifestationController.ShowManifestationDetails);
         get("/api/remainingtickets/:id", ManifestationController.GetRemainingTickets);
         get("/api/manifestationcomments/:id", ManifestationController.GetCommentsForManifestation);
+        get("/api/cancomment/:id", CommentController.CheckCanComment);
 
         post("/api/buyers/register", UserController.RegisterBuyer);
         post("/api/login", UserController.Login);
@@ -57,6 +59,9 @@ public class Main {
         post("/api/activatemanifestation/:id", ManifestationController.ActivateManifestation);
         post("/api/deletemanifestation/:id", ManifestationController.DeleteManifestation);
         post("/api/updatemanifestation", ManifestationController.UpdateManifestation);
+        post("/api/createcomment", CommentController.AddComment);
+        post("/api/approvecomment/:id", CommentController.ApproveComment);
+        post("/api/deletecomment/:id", CommentController.DeleteComment);
     }
 
 }

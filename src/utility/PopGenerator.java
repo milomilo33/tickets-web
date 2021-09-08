@@ -50,15 +50,15 @@ public class PopGenerator {
 
         Location location = new Location(UUID.randomUUID(), 45.2716, 19.8478, "Novi Sad");
 
-        Manifestation m = new Manifestation(UUID.randomUUID(), "Fated spin", "Wedding", "100", LocalDateTime.now(), 250.0, true, location, imgToString("src/images/wedding.png"), false, 5.4);
+        Manifestation m = new Manifestation(UUID.randomUUID(), "Fated spin", "Wedding", "100", LocalDateTime.now(), 250.0, true, location, imgToString("src/images/wedding.png"), false, 0.0);
         PopStore.getManifestations().add(m);
-        m = new Manifestation(UUID.randomUUID(), "Red Star Match", "Soccer", "1000", LocalDateTime.now(), 150.0, true, location, imgToString("src/images/soccer.png"), false, 9.1);
+        m = new Manifestation(UUID.randomUUID(), "Red Star Match", "Soccer", "1000", LocalDateTime.now(), 150.0, true, location, imgToString("src/images/soccer.png"), false, 0.0);
         PopStore.getManifestations().add(m);
-        m = new Manifestation(UUID.randomUUID(), "Ftn entrance party", "Party", "50", LocalDateTime.now(), 300.0, true, location, imgToString("src/images/party.png"), false, 3.0);
+        m = new Manifestation(UUID.randomUUID(), "Ftn entrance party", "Party", "50", LocalDateTime.now(), 300.0, true, location, imgToString("src/images/party.png"), false, 0.0);
         PopStore.getManifestations().add(m);
         m = new Manifestation(UUID.randomUUID(), "Dinos Cinema", "Cinema", "75", LocalDateTime.now(), 550.0, true, location, imgToString("src/images/cinema.png"), false, 0.0);
         PopStore.getManifestations().add(m);
-        m = new Manifestation(UUID.randomUUID(), "Petroland", "Aquapark", "300", LocalDateTime.now(), 400.0, true, location, imgToString("src/images/aquapark.png"), false, 7.7);
+        m = new Manifestation(UUID.randomUUID(), "Petroland", "Aquapark", "300", LocalDateTime.now(), 400.0, true, location, imgToString("src/images/aquapark.png"), false, 10.0);
         PopStore.getManifestations().add(m);
 
         User user = new User(UUID.randomUUID(), "AdminSuperstar", "admin0", "Dragoljub", "Vladin", "Male", "09.03.1981.", UserRole.ADMINISTRATOR, null, null, 0.0, (UserType) PopStore.getUserTypes().toArray()[0], false, false);
@@ -88,8 +88,9 @@ public class PopGenerator {
 
         Ticket ticket = new Ticket(UUID.randomUUID(), generateShortId(10),m,LocalDateTime.now(), 400.0, user, TicketStatus.REZERVISANA, TicketType.REGULAR);
         PopStore.getTickets().add(ticket);
+        user.getTickets().add(ticket);
 
-        Comment comment = new Comment(UUID.randomUUID(), user, m, "sve je bilo super", 10);
+        Comment comment = new Comment(UUID.randomUUID(), user, m, "sve je bilo super", 10, false, false);
         PopStore.getComments().add(comment);
     }
 }

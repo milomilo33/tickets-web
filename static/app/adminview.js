@@ -29,7 +29,7 @@ Vue.component('adminview', {
                             <b-nav-item-dropdown :text="currentUsername" right>
                                 <b-dropdown-item href="/#/AdminView/Profile">Profile</b-dropdown-item>
                                 <b-dropdown-item href="">Change password</b-dropdown-item>
-                                <b-dropdown-item href="" @Click="logout">Sign Out</b-dropdown-item>
+                                <b-dropdown-item href="" v-on:click="logout">Sign Out</b-dropdown-item>
                             </b-nav-item-dropdown>
                         </b-navbar-nav>
                         </b-collapse>

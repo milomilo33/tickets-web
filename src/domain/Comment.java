@@ -9,15 +9,36 @@ public class Comment {
     private Manifestation manifestation;
     private String text;
     private Integer rating;
+    private Boolean approved;
+    private Boolean deleted;
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
 
     @Override
     public String toString() {
         return "Comment{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", user=" + user +
                 ", manifestation=" + manifestation +
                 ", text='" + text + '\'' +
                 ", rating=" + rating +
+                ", approved=" + approved +
+                ", deleted=" + deleted +
                 '}';
     }
 
@@ -30,12 +51,24 @@ public class Comment {
                 Objects.equals(user, comment.user) &&
                 Objects.equals(manifestation, comment.manifestation) &&
                 Objects.equals(text, comment.text) &&
-                Objects.equals(rating, comment.rating);
+                Objects.equals(rating, comment.rating) &&
+                Objects.equals(approved, comment.approved) &&
+                Objects.equals(deleted, comment.deleted);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, manifestation, text, rating);
+        return Objects.hash(id, user, manifestation, text, rating, approved, deleted);
+    }
+
+    public Comment(UUID id, User user, Manifestation manifestation, String text, Integer rating, Boolean approved, Boolean deleted) {
+        this.id = id;
+        this.user = user;
+        this.manifestation = manifestation;
+        this.text = text;
+        this.rating = rating;
+        this.approved = approved;
+        this.deleted = deleted;
     }
 
     public UUID getId() {
@@ -78,13 +111,7 @@ public class Comment {
         this.rating = rating;
     }
 
-    public Comment(UUID id, User user, Manifestation manifestation, String text, Integer rating) {
-        this.id = id;
-        this.user = user;
-        this.manifestation = manifestation;
-        this.text = text;
-        this.rating = rating;
-    }
+
 
     public Comment() {
     }

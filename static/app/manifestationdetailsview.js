@@ -20,7 +20,14 @@ Vue.component('manifestationdetailsview', {
             remainingTickets: 0,
             comments: {},
             mapPosition: {latitude: 45.267136, longitude: 19.833549},
-            noComments: false
+            noComments: false,
+            comment: {
+                rating: 0,
+                text: '',
+                manifestationId: '',
+            },
+            canComment: false,
+            ratingOptions: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         }
     },
     template: `
@@ -58,7 +65,8 @@ Vue.component('manifestationdetailsview', {
         </b-col>
     </b-row>
     <b-row>
-    <label class="font-weight-bold col-1 pt-3" style="font-size:1vw">Comments:</label>   
+    <label class="font-weight-bold col-1 pt-3" style="font-size:1vw">Comments:</label>
+    <b-button id="leaveComment" v-if="canComment" v-b-modal.modal-comment>Leave a comment</b-button>   
      <div class="pl-3 pr-3" style="width: 100%;">    
      <h5 v-if="noComments">No comments yet</h5>
     <div class="col" v-for="c in comments" :key="c.id" >
@@ -75,10 +83,31 @@ Vue.component('manifestationdetailsview', {
             <b-card-text class="col-1">
                 Rated: {{ratingConv(c.rating)}}
             </b-card-text>
+            <b-button variant="success" v-if="showComment(c)" v-on:click="approveComment(c.id)">Approve</b-button>
+            <b-button variant="danger" v-if="showDelete()" v-on:click="deleteComment(c.id)">Delete</b-button>
           </b-card>
         </div>
      </div>
     </b-row>
+        
+    <b-modal id="modal-comment" title="Write your comment" hide-footer centered>
+    <b-row>
+    <b-col><label class="font-weight-bold">Rate:</label></b-col>
+     <b-col>
+    <b-form-select v-model="comment.rating" :options="ratingOptions" class="mb-2 mr-sm-2 mb-sm-0"></b-form-select>
+    </b-col>
+    </b-row>
+    <br/>
+    <b-form-textarea
+      id="textarea-comment"
+      v-model="comment.text"
+      placeholder="Enter your comment..."
+      rows="3"
+      max-rows="6"
+    ></b-form-textarea>
+     <b-button class="mt-3" variant="primary" style="width: 100%" v-on:click="addComment">Submit</b-button>
+    <b-button class="mt-3" block @click="$bvModal.hide('modal-comment')">Cancel</b-button>
+    </b-modal>
     </div>
     `,
     methods:{
@@ -118,10 +147,66 @@ Vue.component('manifestationdetailsview', {
                 })
             });
         },
+        addComment(e){
+            e.preventDefault();
+            if(!this.comment.text){
+                alert("Please enter some text for your comment.");
+                return;
+            }
+            axios.post('createcomment', JSON.stringify(this.comment))
+                .then(res => {alert('Comment submitted!\n Awaiting moderator approval.')})
+                .catch(err => console.error(err));
+        },
+        showComment(c){
+            let curr = window.location.href;
+            curr = curr.split('/')[4];
+            return !c.approved && curr === 'SellerView';
+        },
+        showDelete(){
+            let curr = window.location.href;
+            curr = curr.split('/')[4];
+            return curr === 'AdminView';
+        },
+        refreshManifestation(){
+            let self = this;
+            axios.get('manifestationcomments/' + self.comment.manifestationId)
+                .then(res =>{
+                    self.comments = res.data;
+                    if(self.comments.length === 0)
+                        self.noComments = true;
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+            axios.get('manifestationdetails/' + self.comment.manifestationId)
+                .then(res =>{
+                    self.manifestation.rating = res.data.rating;
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        },
+        approveComment(id){
+            let self = this;
+            axios.post('approvecomment/' + id)
+                .then(res => {
+                    alert('Comment approved!');
+                    self.refreshManifestation();
+                })
+        },
+        deleteComment(id){
+            let self = this;
+            axios.post('deletecomment/' + id)
+                .then(res => {
+                    alert('Comment deleted!');
+                    self.refreshManifestation();
+                })
+        }
     },
     mounted(){
         let self = this;
-        axios.get('manifestationdetails/' + this.$route.query.id)
+        self.comment.manifestationId = this.$route.query.id;
+            axios.get('manifestationdetails/' + this.$route.query.id)
             .then(res =>{
                 self.manifestation = res.data;
                 self.manifestation.picture = 'data:image/png;base64,' + self.manifestation.picture;
@@ -146,6 +231,11 @@ Vue.component('manifestationdetailsview', {
             .catch(err => {
                 console.error(err);
             });
+        axios.get('cancomment/' + this.$route.query.id)
+            .then(res => {
+                self.canComment = (res.data === 'true');
+            })
+            .catch(err => console.error(err))
     }
     }
 )
