@@ -1,15 +1,16 @@
 package controller;
 
 import com.google.gson.Gson;
-import domain.Manifestation;
-import domain.Ticket;
-import domain.TicketStatus;
-import domain.UserRole;
+import domain.*;
 import javaxt.utils.string;
+import org.eclipse.jetty.util.DateCache;
 import spark.Route;
 import storage.PopStore;
+import utility.PopGenerator;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -169,5 +170,133 @@ public class TicketController {
                 return "ERROR";
         }
     }
+
+    public static Route CheckReservationQuantityAndPrice = ((req, res) -> {
+        Map<String, String> queryParams = new HashMap<>();
+        req.queryParams().forEach(q -> queryParams.put(q, req.queryParams(q)));
+        Integer quantity = Integer.parseInt(queryParams.get("quantity"));
+        UUID manifestationId = UUID.fromString(queryParams.get("manifestationId"));
+        String ticketTypeStr = queryParams.get("type");
+        ticketTypeStr = ticketTypeFix(ticketTypeStr);
+        TicketType ticketType = TicketType.valueOf(ticketTypeStr);
+
+        Manifestation m = PopStore.getManifestations().stream().filter(manifestation -> manifestation.getId().equals(manifestationId)).collect(Collectors.toList()).get(0);
+        Long remainingTickets = Integer.parseInt(m.getCapacity()) - PopStore.getTickets().stream()
+                .filter(ticket -> ticket.getManifestation().getId().equals(m.getId()))
+                .filter(ticket -> !ticket.getDeleted())
+                .filter(ticket -> ticket.getStatus() == TicketStatus.REZERVISANA)
+                .count();
+
+        if (quantity <= remainingTickets) {
+            double totalPrice = quantity * m.getTicketPrice();
+            if (PopStore.getCurrentUser().getType() != null)
+                totalPrice *= PopStore.getCurrentUser().getType().getDiscount();
+            if (ticketType == TicketType.FAN_PIT)
+                totalPrice *= 2;
+            if (ticketType == TicketType.VIP)
+                totalPrice *= 4;
+
+            res.body(String.valueOf(totalPrice));
+            res.status(200);
+        }
+        else
+            res.status(400);
+
+        return res;
+    });
+
+    public static Route MakeReservation = ((req, res) -> {
+        var payload = gson.fromJson(req.body(), HashMap.class);
+        Integer quantity = Integer.parseInt(String.valueOf(payload.get("quantity")));
+        UUID manifestationId = UUID.fromString(String.valueOf(payload.get("manifestationId")));
+        String ticketTypeStr = (String) payload.get("type");
+        ticketTypeStr = ticketTypeFix(ticketTypeStr);
+        TicketType ticketType = TicketType.valueOf(ticketTypeStr);
+
+        Manifestation m = PopStore.getManifestations().stream().filter(manifestation -> manifestation.getId().equals(manifestationId)).collect(Collectors.toList()).get(0);
+        Long remainingTickets = Integer.parseInt(m.getCapacity()) - PopStore.getTickets().stream()
+                .filter(ticket -> ticket.getManifestation().getId().equals(m.getId()))
+                .filter(ticket -> !ticket.getDeleted())
+                .filter(ticket -> ticket.getStatus() == TicketStatus.REZERVISANA)
+                .count();
+
+        if (quantity <= remainingTickets) {
+            double totalPrice = quantity * m.getTicketPrice();
+            if (PopStore.getCurrentUser().getType() != null)
+                totalPrice *= PopStore.getCurrentUser().getType().getDiscount();
+            if (ticketType == TicketType.FAN_PIT)
+                totalPrice *= 2;
+            if (ticketType == TicketType.VIP)
+                totalPrice *= 4;
+
+            double newPoints = 0.0;
+            for (int i = 0; i < quantity; i++) {
+                Ticket newTicket = new Ticket(UUID.randomUUID(), PopGenerator.generateShortId(10), m, m.getDate(),
+                                              totalPrice / quantity, PopStore.getCurrentUser(), TicketStatus.REZERVISANA,
+                                              ticketType);
+                PopStore.getTickets().add(newTicket);
+                newPoints += (totalPrice / quantity) / 1000 * 133;
+            }
+
+            PopStore.getCurrentUser().setPoints(PopStore.getCurrentUser().getPoints() + newPoints);
+            UserType maxThresholdType = PopStore.getCurrentUser().getType();
+            for (var userType : PopStore.getUserTypes()) {
+                if (PopStore.getCurrentUser().getPoints() >= userType.getThreshold() &&
+                        userType.getThreshold() > maxThresholdType.getThreshold()) {
+                    maxThresholdType = userType;
+                }
+            }
+            PopStore.getCurrentUser().setType(maxThresholdType);
+
+            res.body(String.valueOf(newPoints));
+            res.status(200);
+        }
+        else
+            res.status(400);
+
+        return res;
+    });
+
+    public static Route CheckCancellable = ((req, res) -> {
+        UUID ticketId = UUID.fromString(req.params(":id"));
+
+        Ticket ticket = PopStore.getTickets().stream().filter(t -> t.getId().equals(ticketId)).collect(Collectors.toList()).get(0);
+        LocalDateTime eventDate = ticket.getManifestation().getDate();
+        long days = LocalDateTime.now().until(eventDate, ChronoUnit.DAYS);
+
+        if (days < 7)
+            res.status(400);
+        else
+            res.status(200);
+
+        return res;
+    });
+
+    public static Route CancelTicket = ((req, res) -> {
+        UUID ticketId = UUID.fromString(req.params(":id"));
+
+        Ticket ticket = PopStore.getTickets().stream().filter(t -> t.getId().equals(ticketId)).collect(Collectors.toList()).get(0);
+        ticket.setStatus(TicketStatus.ODUSTANAK);
+
+        double lostPoints = ticket.getPrice() / 1000 * 133 * 4;
+        PopStore.getCurrentUser().setPoints(PopStore.getCurrentUser().getPoints() - lostPoints);
+        if (PopStore.getCurrentUser().getType().getThreshold() > PopStore.getCurrentUser().getPoints()) {
+            UserType maxThresholdType = null;
+            for (var userType : PopStore.getUserTypes()) {
+                if (userType.getThreshold() <= PopStore.getCurrentUser().getPoints()) {
+                    if (maxThresholdType == null)
+                        maxThresholdType = userType;
+                    else if (userType.getThreshold() > maxThresholdType.getThreshold())
+                        maxThresholdType = userType;
+                }
+            }
+            PopStore.getCurrentUser().setType(maxThresholdType);
+        }
+
+        res.body(String.valueOf(lostPoints));
+        res.status(200);
+
+        return res;
+    });
 
 }

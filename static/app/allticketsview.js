@@ -25,7 +25,8 @@ Vue.component('allticketsview', {
                 onlyReserved: '',
                 priceFrom: 0.0,
                 priceTo: 999999.0,
-                role: ''
+                role: '',
+                errorMessage: ''
             };
         },
 
@@ -68,18 +69,26 @@ Vue.component('allticketsview', {
             class="mb-2"
           >
             <b-list-group flush>
-              <b-list-group-item v-if="this.role !== 'buyer'">Ticket owner: {{t.buyer.username}}</b-list-group-item>
-              <b-list-group-item>Ticket type: {{t.type}}</b-list-group-item>
+              <b-list-group-item v-if="showOwner()">Ticket owner: {{t.buyer.username}}</b-list-group-item>
+              <b-list-group-item>Ticket type: {{ticketTypeToStr(t.type)}}</b-list-group-item>
               <b-list-group-item>Date of manifestation: {{dateTimeToDate(t.date)}} at {{dateTimeToTime(t.date)}}</b-list-group-item>
               <b-list-group-item>Ticket price: {{t.price}} RSD</b-list-group-item>
               <b-list-group-item>Status: {{statusConv(t.status)}}</b-list-group-item>
             </b-list-group>
         
-<!--            <b-button v-on:click="details(t.id)" variant="primary">Details</b-button>-->
+            <b-button v-if="cancellable(t.status)" v-on:click="cancel(t.id, t.manifestation.name, ticketTypeToStr(t.type))" variant="danger">Cancel</b-button>
           </b-card>
         </div>        
         </div>
         </b-card-group>
+        
+             <b-modal ref="error-modal" hide-footer title="Error">
+                <div class="d-block text-center">
+                    <p>{{ this.errorMessage }}</p>
+                </div>
+                <b-button class="mt-3" variant="outline-danger" block @click="hideErrorModal">Close</b-button>
+            </b-modal>
+        
         </div>
     `,
 
@@ -109,12 +118,67 @@ Vue.component('allticketsview', {
                         self.tickets = response.data;
                     })
                     .catch(error => console.log(error));
-            }//,
-            // details(id){
-            //     let curr = window.location.href;
-            //     curr = curr.split('/')[4];
-            //     this.$router.push({path: curr + '/ManifestationDetails', query: {'id' : id}});
-            // }
+            },
+            cancel(id, manifestationName, ticketType){
+                let self = this;
+                axios.get('checkcancellable/' + id)
+                    .then(res => {
+                        axios.get('cancelticket/' + id)
+                            .then(res => {
+                                let lostPoints = res.data;
+                                let okString = `You have cancelled a` +
+                                    ` '${ticketType}' ticket for '${manifestationName}'` +
+                                    ` and thereby lost ${lostPoints} points.`;
+                                this.$bvModal.msgBoxOk(okString, {
+                                    title: 'Cancelled',
+                                    size: 'sm',
+                                    buttonSize: 'sm',
+                                    okVariant: 'success',
+                                    headerClass: 'p-2 border-bottom-0',
+                                    footerClass: 'p-2 border-top-0',
+                                    centered: true
+                                });
+
+                                axios.get('/alltickets')
+                                    .then(response => {
+                                        self.tickets = response.data;
+                                    })
+                                    .catch(error => console.log(error));
+                            })
+                            .catch(err => {
+                                this.errorMessage = "This ticket cannot be cancelled!";
+                                this.showErrorModal();
+                            });
+                    })
+                    .catch(err => {
+                        this.errorMessage = "This ticket cannot be cancelled!";
+                        this.showErrorModal();
+                    })
+            },
+            hideErrorModal() {
+                this.$refs['error-modal'].hide();
+            },
+            showErrorModal() {
+                this.$refs['error-modal'].show();
+            },
+            cancellable (status) {
+                return this.role === 'buyer' && this.statusConv(status) === 'Reserved';
+            },
+            showOwner() {
+                return this.role !== 'buyer';
+            },
+            ticketTypeToStr (type) {
+                switch (type) {
+                    case "REGULAR":
+                        return "Regular";
+                    case "FAN_PIT":
+                        return "Fan pit";
+                    case "VIP":
+                        return "VIP";
+                    default:
+                        return "ERROR";
+                }
+            }
         },
 
         mounted() {
@@ -134,7 +198,7 @@ Vue.component('allticketsview', {
 
             if (this.role === "seller")
                 this.onlyReserved = "true";
-        }
+        },
 
     }
 )

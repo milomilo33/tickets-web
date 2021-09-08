@@ -5,7 +5,7 @@
     margin-bottom: 1rem;
 }
 
-footer {
+#global-footer {
     position: absolute;
     left: 0;
     background-color: #2a2d33;

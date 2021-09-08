@@ -26,6 +26,19 @@ Vue.component('allmanifestationsview', {
             name: '',
             showDeleted: false,
             showActivated: false,
+            showReserveTickets: false,
+            errorMessage: '',
+            quantityToReserve: 0,
+            showInvalidQty: false,
+            selectedManifestationId: -1,
+            selectedManifestationName: '',
+            ticketTypeSelected: 'Regular',
+            ticketTypes: [
+                {value: 'Regular', text: 'Regular'},
+                {value: 'Fan pit', text: 'Fan pit'},
+                {value: 'VIP', text: 'VIP'}
+            ],
+            totalPrice: ''
         };
     },
 
@@ -79,10 +92,49 @@ Vue.component('allmanifestationsview', {
             <b-button v-on:click="details(m.id)" variant="primary">Details</b-button>
             <b-button v-if="showDeleted" v-on:click="deleteManif(m.id)" variant="danger">Delete</b-button>
             <b-button v-if="activateBtn(m.active)" v-on:click="activateManif(m.id)" variant="success">Activate</b-button>
+            <b-button v-if="showReserveTickets" v-on:click="reserveTickets(m.id, m.name)" variant="success">Reserve tickets</b-button>
           </b-card>
         </div>        
         </div>
         </b-card-group>
+        
+            <b-modal ref="error-modal" hide-footer title="Error">
+                <div class="d-block text-center">
+                    <p>{{ this.errorMessage }}</p>
+                </div>
+                <b-button class="mt-3" variant="outline-danger" block @click="hideErrorModal">Close</b-button>
+            </b-modal>
+        
+            <b-modal
+              id="reserveModal"
+              ref="reserveModal"
+              title="Amount of tickets to reserve"
+              @show="resetReserveModal"
+              @ok="handleReserveModalOk"
+            >
+                <b-alert v-model="showInvalidQty" dismissible fade variant="danger">
+                    {{this.errorMessage}}
+                </b-alert>
+              <form ref="reserveForm" @submit.stop.prevent="handleReserveFormSubmit">
+                <b-form-group
+                  label="Quantity"
+                  label-for="quantityInput"
+                >
+                  <b-form-input
+                    id="quantityInput"
+                    v-model="quantityToReserve"
+                    type="number"
+                    min="1"
+                    step="1"
+                    required
+                  ></b-form-input>
+                </b-form-group>
+                <b-form-group label="Ticket type: " label-class="font-weight-bold">
+                    <b-form-select :options="ticketTypes" v-model="ticketTypeSelected"></b-form-select>
+                </b-form-group>
+              </form>
+            </b-modal>
+        
         </div>
     `,
 
@@ -158,6 +210,109 @@ Vue.component('allmanifestationsview', {
                         .catch(error => console.log(error));
                 })
                 .catch(err => console.log(err));
+        },
+        ticketsLeft(id){
+            return axios.get('remainingtickets/' + id)
+                .then(res => {
+                    return parseInt(res.data);
+                })
+                .catch(err => {
+                    console.error(err);
+                    return -1;
+                });
+        },
+        reserveTickets(id, name){
+            this.selectedManifestationId = id;
+            this.selectedManifestationName = name;
+            this.ticketsLeft(id)
+                .then(amount => {
+                    if (amount <= 0) {
+                        this.errorMessage = "No tickets left for this manifestation.";
+                        this.showErrorModal();
+                        return;
+                    }
+
+                    this.$refs['reserveModal'].show();
+                })
+                .catch(err => console.log(err));
+        },
+        hideErrorModal() {
+            this.$refs['error-modal'].hide();
+        },
+        showErrorModal() {
+            this.$refs['error-modal'].show();
+        },
+        resetReserveModal() {
+            this.quantityToReserve = 0;
+            this.showInvalidQty = false;
+        },
+        handleReserveModalOk(e) {
+            e.preventDefault();
+            this.handleReserveFormSubmit();
+        },
+        handleReserveFormSubmit() {
+            if (!(/^\d+$/.test(this.quantityToReserve)) || this.quantityToReserve <= 0) {
+                this.errorMessage = "Invalid ticket quantity!";
+                this.showInvalidQty = true;
+                return;
+            }
+
+            let query = '?quantity=' + this.quantityToReserve + '&manifestationId=' + this.selectedManifestationId +
+                        '&type=' + this.ticketTypeSelected;
+            // open confirm modal
+            axios.get('checkreservationquantityandprice' + query)
+                .then(res => {
+                    let totalPrice = res.data;
+                    let confirmString = `The total price for ${this.quantityToReserve} '${this.ticketTypeSelected}' ticket(s)` +
+                                        `for '${this.selectedManifestationName}' is ${totalPrice} RSD. Are you sure you want to make this reservation?`;
+                    this.$bvModal.msgBoxConfirm(confirmString, {
+                        title: 'Confirm reservation',
+                        size: 'sm',
+                        buttonSize: 'sm',
+                        okVariant: 'danger',
+                        okTitle: 'YES',
+                        cancelTitle: 'NO',
+                        footerClass: 'p-2',
+                        hideHeaderClose: false,
+                        centered: true
+                    })
+                        .then(value => {
+                            if (value) {
+                                axios.post('makereservation', {
+                                    quantity: this.quantityToReserve,
+                                    manifestationId: this.selectedManifestationId,
+                                    type: this.ticketTypeSelected
+                                })
+                                    .then(res => {
+                                        let okString = `You have successfully reserved ${this.quantityToReserve}` +
+                                            ` '${this.ticketTypeSelected}' ticket(s) for '${this.selectedManifestationName}'` +
+                                            ` and thereby gained ${res.data} points.`;
+                                        this.$bvModal.msgBoxOk(okString, {
+                                            title: 'Reserved',
+                                            size: 'sm',
+                                            buttonSize: 'sm',
+                                            okVariant: 'success',
+                                            headerClass: 'p-2 border-bottom-0',
+                                            footerClass: 'p-2 border-top-0',
+                                            centered: true
+                                        });
+                                    })
+                                    .catch(err => console.log(err));
+                            }
+                        })
+                        .catch(err => {
+                            // An error occurred
+                            console.log(err)
+                        })
+
+                    this.$nextTick(() => {
+                        this.$refs['reserveModal'].hide();
+                    })
+                })
+                .catch(err => {
+                    this.errorMessage = "Not enough tickets left for this manifestation!";
+                    this.showInvalidQty = true;
+                });
         }
     },
 
@@ -184,6 +339,9 @@ Vue.component('allmanifestationsview', {
                 self.types.unshift("Select a type:")
             })
             .catch(error => console.log(error));
+
+        if (this.$route.path.includes("BuyerView"))
+            self.showReserveTickets = true;
     }
 
     }
