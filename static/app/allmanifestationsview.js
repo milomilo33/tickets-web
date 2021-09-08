@@ -24,6 +24,8 @@ Vue.component('allmanifestationsview', {
             priceFrom: 0.0,
             priceTo: 999999.0,
             name: '',
+            showDeleted: false,
+            showActivated: false,
         };
     },
 
@@ -75,6 +77,8 @@ Vue.component('allmanifestationsview', {
             </b-list-group>
         
             <b-button v-on:click="details(m.id)" variant="primary">Details</b-button>
+            <b-button v-if="showDeleted" v-on:click="deleteManif(m.id)" variant="danger">Delete</b-button>
+            <b-button v-if="activateBtn(m.active)" v-on:click="activateManif(m.id)" variant="success">Activate</b-button>
           </b-card>
         </div>        
         </div>
@@ -101,7 +105,7 @@ Vue.component('allmanifestationsview', {
             e.preventDefault();
             let searchOptions = '?dateFrom=' + this.dateFrom + '&dateTo=' + this.dateTo + '&sortSelected=' + this.sortSelected +
             '&soldOut=' + this.soldOut + '&typeSelected=' + this.typeSelected + '&address=' + this.address + '&priceFrom=' +
-                this.priceFrom + '&priceTo=' + this.priceTo + '&name=' + this.name;
+                this.priceFrom + '&priceTo=' + this.priceTo + '&name=' + this.name + '&isSeller=false';
             let self = this;
             axios.get('manifestationsearch' + searchOptions)
                 .then(response => {
@@ -117,12 +121,55 @@ Vue.component('allmanifestationsview', {
             let curr = window.location.href;
             curr = curr.split('/')[4];
             this.$router.push({path: curr + '/ManifestationDetails', query: {'id' : id}});
+        },
+        activateBtn(activatedInfo){
+            return !activatedInfo && this.showActivated;
+        },
+        deleteManif(id){
+            let self = this;
+            axios.post("/deletemanifestation/" + id)
+                .then(res => {
+                    alert("Manifestation deleted!");
+                    axios.get('/allmanifestations')
+                        .then(response => {
+                            self.manifestations = response.data;
+                            for(item of self.manifestations){
+                                item.picture = 'data:image/png;base64,' + item.picture;
+                                //item.date = new Date(item.date);
+                            }
+                        })
+                        .catch(error => console.log(error));
+                })
+                .catch(err => console.log(err));
+        },
+        activateManif(id){
+            let self = this;
+            axios.post("/activatemanifestation/" + id)
+                .then(res => {
+                    alert("Manifestation activated!");
+                    axios.get('/allmanifestations')
+                        .then(response => {
+                            self.manifestations = response.data;
+                            for(item of self.manifestations){
+                                item.picture = 'data:image/png;base64,' + item.picture;
+                                //item.date = new Date(item.date);
+                            }
+                        })
+                        .catch(error => console.log(error));
+                })
+                .catch(err => console.log(err));
         }
     },
 
     mounted() {
         let self = this;
-        axios.get('/allmanifestations')
+        let curr = window.location.href;
+        curr = curr.split('/')[4];
+        if(curr === "AdminView"){
+           self.showDeleted = true;
+           self.showActivated = true;
+        }
+        axios.get('/allmanifestations?isSeller=false')
             .then(response => {
                 self.manifestations = response.data;
                 for(item of self.manifestations){

@@ -3,6 +3,7 @@ package controller;
 import com.google.gson.Gson;
 import domain.Location;
 import domain.Manifestation;
+import domain.UserRole;
 import spark.Route;
 import storage.PopStore;
 
@@ -61,7 +62,12 @@ public class ManifestationController {
         }
         else {
             res.status(200);
-            res.body(gson.toJson(FilterManifestations()));
+            Map<String, String> searchParams = new HashMap<>();
+            req.queryParams().forEach(q -> searchParams.put(q, req.queryParams(q)));
+            List<Manifestation> manifestations = FilterManifestations();
+            if(Boolean.parseBoolean(searchParams.get("isSeller")))
+                manifestations = manifestations.stream().filter(manifestation -> PopStore.getCurrentUser().getManifestations().stream().anyMatch(manifestation1 -> manifestation1.getId().equals(manifestation.getId()))).collect(Collectors.toList());
+            res.body(gson.toJson(manifestations));
         }
 
         return res;
@@ -92,7 +98,6 @@ public class ManifestationController {
             if(searchParams.getOrDefault("dateFrom", "1900-01-01").equals("")) searchParams.put("dateFrom", "1900-01-01");
             if(searchParams.getOrDefault("dateTo", "1900-01-01").equals("")) searchParams.put("dateTo", "3021-01-01");
             if(searchParams.get("typeSelected").equals("Select a type:"))searchParams.put("typeSelected", "");
-            System.out.println(searchParams.get("dateFrom"));
             var fpManifs = manifestations.stream()
                     .filter(manifestation -> manifestation.getName().toLowerCase().contains(searchParams.getOrDefault("name", manifestation.getName()).toLowerCase()))
                     .filter(manifestation -> manifestation.getLocation().getAddress().toLowerCase().contains(searchParams.getOrDefault("address", manifestation.getLocation().getAddress()).toLowerCase()))
@@ -110,7 +115,6 @@ public class ManifestationController {
                         return true;
                     })
                     .collect(Collectors.toList());
-            System.out.println(fpManifs.size());
             if(Integer.parseInt(searchParams.get("sortSelected")) != 0) {
 
                     switch(Integer.parseInt(searchParams.get("sortSelected"))){
@@ -158,6 +162,8 @@ public class ManifestationController {
                             break;
                     }
             }
+            if(Boolean.parseBoolean(searchParams.get("isSeller")))
+                fpManifs = fpManifs.stream().filter(manifestation -> PopStore.getCurrentUser().getManifestations().stream().anyMatch(manifestation1 -> manifestation1.getId().equals(manifestation.getId()))).collect(Collectors.toList());
             res.body(gson.toJson(fpManifs));
         }
 
@@ -185,15 +191,13 @@ public class ManifestationController {
         return res;
     });
 
-    public static Route CreateNewManifestation = ((req, res) -> {
-        res.status(200);
-        var json = gson.fromJson((req.body()), HashMap.class);
+    private static String GenerateManifestation(HashMap<?,?> json, String txt1, String txt2, Manifestation m){
         LocalDateTime dateTime = LocalDateTime.of(LocalDate.parse((CharSequence) json.get("date")), LocalTime.parse((CharSequence) json.get("time")));
-        if(PopStore.getManifestations().stream().anyMatch(manifestation -> manifestation.getDate().isEqual(dateTime))){
-            res.body(gson.toJson("Opening date matches a manifestation that already exists.\nCreation failed."));
-            return res;
+        if(PopStore.getManifestations().stream().anyMatch(manifestation -> manifestation.getDate().isEqual(dateTime) && manifestation.getLocationAddr().equals((String) json.get("address")))){
+            return "Opening date matches a manifestation that already exists.\n" + txt1 + " failed.";
         }
-        Manifestation manifestation = new Manifestation();
+        Manifestation manifestation;
+        manifestation = Objects.requireNonNullElseGet(m, Manifestation::new);
         manifestation.setId(UUID.randomUUID());
         manifestation.setActive(false);
         manifestation.setCapacity((String) json.get("capacity"));
@@ -212,9 +216,55 @@ public class ManifestationController {
         manifestation.setRating(0.0);
         manifestation.setTicketPrice(Double.valueOf((String) json.get("ticketPrice")));
         manifestation.setType((String) json.get("type"));
-        PopStore.getManifestations().add(manifestation);
-        PopStore.getCurrentUser().getManifestations().add(manifestation);
-        res.body(gson.toJson("Manifestation successfully created!"));
+        if(txt1.equals("Creation")) {
+            List<Manifestation> manifestations = new ArrayList<>(PopStore.getManifestations());
+            manifestations.add(0, manifestation);
+            PopStore.setManifestations(manifestations);
+            manifestations = new ArrayList<>(PopStore.getCurrentUser().getManifestations());
+            manifestations.add(0, manifestation);
+            PopStore.getCurrentUser().setManifestations(manifestations);
+        }
+        return "Manifestation successfully "+txt2+"!";
+    }
+
+    public static Route CreateNewManifestation = ((req, res) -> {
+        res.status(200);
+        var json = gson.fromJson((req.body()), HashMap.class);
+        res.body(gson.toJson(GenerateManifestation(json, "Creation", "created", null)));
+        return res;
+    });
+
+    public static Route ActivateManifestation = ((req, res)->{
+        res.status(200);
+        for(var manifestation : PopStore.getManifestations()) {
+          if(manifestation.getId().equals(UUID.fromString(req.params(":id")))) {
+                manifestation.setActive(true);
+                break;
+          }
+        }
+        return res;
+    });
+
+    public static Route DeleteManifestation = ((req, res)->{
+        res.status(200);
+        for(var manifestation : PopStore.getManifestations()) {
+            if(manifestation.getId().equals(UUID.fromString(req.params(":id")))) {
+                manifestation.setDeleted(true);
+                break;
+            }
+        }
+        return res;
+    });
+
+    public static Route UpdateManifestation = ((req, res)->{
+        res.status(200);
+        var json = gson.fromJson((req.body()), HashMap.class);
+        for(var manifestation : PopStore.getManifestations()) {
+            if(manifestation.getId().equals(UUID.fromString((String) json.get("id")))) {
+                res.body(gson.toJson(GenerateManifestation(json, "Update", "updated", manifestation)));
+                break;
+            }
+        }
         return res;
     });
 }

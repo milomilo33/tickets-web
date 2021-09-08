@@ -21,6 +21,7 @@ Vue.component('sellerview', {
                                 <b-dropdown-item href="">Option tres</b-dropdown-item>
                                 <b-dropdown-item href="">Option cuatro</b-dropdown-item>
                             </b-nav-item-dropdown>
+                          <b-nav-item href="/#/SellerView/SellersManifestations">My Manifestations</b-nav-item>                            
                           <b-nav-item href="">Placeholder #3</b-nav-item>
                         </b-navbar-nav>
                         

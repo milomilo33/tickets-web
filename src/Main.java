@@ -58,6 +58,9 @@ public class Main {
         post("/api/logout", UserController.Logout);
         post("/api/users/profile", UserController.ChangeUserProfileInfo);
         post("/api/addnewmanifestation", ManifestationController.CreateNewManifestation);
+        post("/api/activatemanifestation/:id", ManifestationController.ActivateManifestation);
+        post("/api/deletemanifestation/:id", ManifestationController.DeleteManifestation);
+        post("/api/updatemanifestation", ManifestationController.UpdateManifestation);
     }
 
 }
