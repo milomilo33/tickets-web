@@ -14,6 +14,7 @@ public class Ticket {
     private TicketStatus status;
     private TicketType type;
     private Boolean deleted;
+    private LocalDateTime cancellationDate;
 
     @Override
     public String toString() {
@@ -135,4 +136,13 @@ public class Ticket {
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
+
+    public LocalDateTime getCancellationDate() {
+        return cancellationDate;
+    }
+
+    public void setCancellationDate(LocalDateTime cancellationDate) {
+        this.cancellationDate = cancellationDate;
+    }
+
 }

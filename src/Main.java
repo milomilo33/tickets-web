@@ -57,6 +57,11 @@ public class Main {
         get("/api/checkreservationquantityandprice", TicketController.CheckReservationQuantityAndPrice);
         get("/api/checkcancellable/:id", TicketController.CheckCancellable);
         get("/api/cancelticket/:id", TicketController.CancelTicket);
+        get("/api/usertypes", UserController.GetUserTypes);
+        get("/api/allusers", UserController.GetAllUsers);
+        get("/api/usersearch", UserController.SearchAllUsers);
+        get("/api/blockuser/:id", UserController.BlockUser);
+        get("/api/deleteuser/:id", UserController.DeleteUser);
 
         post("/api/buyers/register", UserController.RegisterBuyer);
         post("/api/login", UserController.Login);

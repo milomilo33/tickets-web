@@ -11,6 +11,7 @@ const CreateManifestation = {template: '<createmanifestationview></createmanifes
 const AllTicketsView = {template: '<allticketsview></allticketsview>'}
 const SellersManifestations = {template: '<sellersmanifestationsview></sellersmanifestationsview>'}
 const UpdateManifestation = {template: '<updatemanifestationview></updatemanifestationview>'}
+const AllUsersView = {template: '<allusersview></allusersview>'}
 
 
 axios.defaults.baseURL = 'http://localhost:8080/api/'
@@ -92,6 +93,10 @@ const router = new VueRouter({
                 {
                     path: 'UpdateManifestation',
                     component: UpdateManifestation
+                },
+                {
+                    path: 'AllUsers',
+                    component: AllUsersView
                 }
             ]
         },
@@ -115,6 +120,10 @@ const router = new VueRouter({
                 {
                     path: 'AllTickets',
                     component: AllTicketsView
+                },
+                {
+                    path: 'AllUsers',
+                    component: AllUsersView
                 }
             ]
         },

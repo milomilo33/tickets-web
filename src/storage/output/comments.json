@@ -1,8 +1,8 @@
 [
   {
-    "id": "568cb3c9-b65e-4064-a3ac-d3187a01277e",
+    "id": "065270e9-f2da-4434-ad58-2d5a13493cfa",
     "user": {
-      "id": "7aadd828-38da-45cb-b849-f07e0aed02eb",
+      "id": "306350b6-bdbf-448e-a345-fbee3004fa6a",
       "username": "RandomBuyer9",
       "password": "buyer9",
       "name": "Boba9",
@@ -12,7 +12,7 @@
       "role": "KUPAC",
       "points": 15005.0,
       "type": {
-        "id": "e478bc8d-82b0-4584-80e8-2f8fd6dedbd3",
+        "id": "6b344435-330c-4461-8eaa-cd8eb2f4f27f",
         "name": "GOLD",
         "discount": 0.8,
         "threshold": 15000.0
@@ -21,7 +21,7 @@
       "deleted": false
     },
     "manifestation": {
-      "id": "33e2dcbe-b924-4180-9e5e-affe568cdeec",
+      "id": "54a5d389-c274-4069-a7fa-db82530e9b7b",
       "name": "Petroland",
       "type": "Aquapark",
       "capacity": "300",
@@ -29,19 +29,19 @@
         "date": {
           "year": 2021,
           "month": 9,
-          "day": 22
+          "day": 23
         },
         "time": {
           "hour": 12,
-          "minute": 57,
-          "second": 19,
-          "nano": 545249400
+          "minute": 59,
+          "second": 0,
+          "nano": 549354800
         }
       },
       "ticketPrice": 400.0,
       "active": true,
       "location": {
-        "id": "5e207599-60c4-403b-aff1-0ed0065ef129",
+        "id": "d458d156-894d-414e-a617-b4b3b3d11d37",
         "latitude": 45.2716,
         "longitude": 19.8478,
         "address": "Novi Sad"
@@ -50,6 +50,8 @@
       "rating": 7.7
     },
     "text": "sve je bilo super",
-    "rating": 10
+    "rating": 10,
+    "approved": false,
+    "deleted": false
   }
 ]

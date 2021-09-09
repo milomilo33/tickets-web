@@ -2,7 +2,7 @@ Vue.component('loginview', {
    template: `
         <div class="justify-content-center login">
           <b-alert v-model="showErrorAlert" dismissible fade variant="danger">
-              Invalid username and/or password!
+              {{this.errorMessage}}
           </b-alert>
           <b-card title="Login">
             <b-form>
@@ -37,6 +37,7 @@ Vue.component('loginview', {
             username: "",
             password: "",
             showErrorAlert: false,
+            errorMessage: ""
         };
     },
 
@@ -46,6 +47,7 @@ Vue.component('loginview', {
 
             let _this = this;
             if (!this.username || this.username.trim() === "" || !this.password || this.password.trim() === "") {
+                this.errorMessage = "Invalid username and/or password!";
                 this.showErrorAlert = true;
                 return;
             }
@@ -67,7 +69,8 @@ Vue.component('loginview', {
                         console.log("Invalid role returned from server?");
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.log(error.response.data);
+                    this.errorMessage = error.response.data;
                     _this.showErrorAlert = true;
                 });
         },
