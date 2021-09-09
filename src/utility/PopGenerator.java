@@ -98,6 +98,7 @@ public class PopGenerator {
                                     .findFirst()
                                     .orElse(m);
         ticket = new Ticket(UUID.randomUUID(), generateShortId(10),randomManifestation,randomManifestation.getDate(), randomManifestation.getTicketPrice() * 2, user, TicketStatus.ODUSTANAK, TicketType.FAN_PIT);
+        ticket.setCancellationDate(LocalDateTime.now());
         PopStore.getTickets().add(ticket);
         randomManifestation = PopStore.getManifestations().stream()
                 .skip((int) (PopStore.getManifestations().size() * Math.random()))

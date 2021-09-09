@@ -277,6 +277,7 @@ public class TicketController {
 
         Ticket ticket = PopStore.getTickets().stream().filter(t -> t.getId().equals(ticketId)).collect(Collectors.toList()).get(0);
         ticket.setStatus(TicketStatus.ODUSTANAK);
+        ticket.setCancellationDate(LocalDateTime.now());
 
         double lostPoints = ticket.getPrice() / 1000 * 133 * 4;
         PopStore.getCurrentUser().setPoints(PopStore.getCurrentUser().getPoints() - lostPoints);
