@@ -124,6 +124,10 @@ const router = new VueRouter({
                 {
                     path: 'AllUsers',
                     component: AllUsersView
+                },
+                {
+                    path: 'RegisterSeller',
+                    component: RegistrationView
                 }
             ]
         },

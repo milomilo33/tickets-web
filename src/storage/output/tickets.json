@@ -1,9 +1,9 @@
 [
   {
-    "id": "fa2762ea-8352-462e-81d9-dde5012d59b4",
-    "specialId": "0UYCZhlQsB",
+    "id": "6e66db94-f2e4-4ee8-98ac-1f1209128b91",
+    "specialId": "HlR29r68Pb",
     "manifestation": {
-      "id": "54a5d389-c274-4069-a7fa-db82530e9b7b",
+      "id": "ee2c7f69-4e87-4eb3-9bfb-e9f0d82b865d",
       "name": "Petroland",
       "type": "Aquapark",
       "capacity": "300",
@@ -11,19 +11,19 @@
         "date": {
           "year": 2021,
           "month": 9,
-          "day": 23
+          "day": 24
         },
         "time": {
-          "hour": 12,
-          "minute": 59,
-          "second": 0,
-          "nano": 549354800
+          "hour": 11,
+          "minute": 37,
+          "second": 19,
+          "nano": 656625100
         }
       },
       "ticketPrice": 400.0,
       "active": true,
       "location": {
-        "id": "d458d156-894d-414e-a617-b4b3b3d11d37",
+        "id": "91baf2dd-8119-4c4f-9fc1-de1c7c56e658",
         "latitude": 45.2716,
         "longitude": 19.8478,
         "address": "Novi Sad"
@@ -35,18 +35,18 @@
       "date": {
         "year": 2021,
         "month": 9,
-        "day": 23
+        "day": 24
       },
       "time": {
-        "hour": 12,
-        "minute": 59,
-        "second": 0,
-        "nano": 549354800
+        "hour": 11,
+        "minute": 37,
+        "second": 19,
+        "nano": 656625100
       }
     },
     "price": 400.0,
     "buyer": {
-      "id": "306350b6-bdbf-448e-a345-fbee3004fa6a",
+      "id": "c0a6b01f-d7ac-4080-a5ed-0bbd7eb510bc",
       "username": "RandomBuyer9",
       "password": "buyer9",
       "name": "Boba9",
@@ -56,7 +56,7 @@
       "role": "KUPAC",
       "points": 15005.0,
       "type": {
-        "id": "6b344435-330c-4461-8eaa-cd8eb2f4f27f",
+        "id": "b1191582-cad7-4874-bffc-bcd68f2886c3",
         "name": "GOLD",
         "discount": 0.8,
         "threshold": 15000.0
@@ -69,53 +69,53 @@
     "deleted": false
   },
   {
-    "id": "51241c7a-b5a1-4bb9-9cac-d878f207dab6",
-    "specialId": "8tgY2xh10n",
+    "id": "ef5f3587-1113-4598-a4a4-e6cbb5706952",
+    "specialId": "R74Ve8li2e",
     "manifestation": {
-      "id": "54a5d389-c274-4069-a7fa-db82530e9b7b",
-      "name": "Petroland",
-      "type": "Aquapark",
-      "capacity": "300",
+      "id": "aef061bb-c5f7-4a55-88d6-04ce0c4bc20e",
+      "name": "Ftn entrance party",
+      "type": "Party",
+      "capacity": "50",
       "date": {
         "date": {
           "year": 2021,
           "month": 9,
-          "day": 23
+          "day": 15
         },
         "time": {
-          "hour": 12,
-          "minute": 59,
-          "second": 0,
-          "nano": 549354800
+          "hour": 11,
+          "minute": 37,
+          "second": 19,
+          "nano": 634628400
         }
       },
-      "ticketPrice": 400.0,
+      "ticketPrice": 300.0,
       "active": true,
       "location": {
-        "id": "d458d156-894d-414e-a617-b4b3b3d11d37",
+        "id": "91baf2dd-8119-4c4f-9fc1-de1c7c56e658",
         "latitude": 45.2716,
         "longitude": 19.8478,
         "address": "Novi Sad"
       },
       "deleted": false,
-      "rating": 7.7
+      "rating": 3.0
     },
     "date": {
       "date": {
         "year": 2021,
         "month": 9,
-        "day": 23
+        "day": 15
       },
       "time": {
-        "hour": 12,
-        "minute": 59,
-        "second": 0,
-        "nano": 549354800
+        "hour": 11,
+        "minute": 37,
+        "second": 19,
+        "nano": 634628400
       }
     },
-    "price": 800.0,
+    "price": 600.0,
     "buyer": {
-      "id": "306350b6-bdbf-448e-a345-fbee3004fa6a",
+      "id": "c0a6b01f-d7ac-4080-a5ed-0bbd7eb510bc",
       "username": "RandomBuyer9",
       "password": "buyer9",
       "name": "Boba9",
@@ -125,7 +125,7 @@
       "role": "KUPAC",
       "points": 15005.0,
       "type": {
-        "id": "6b344435-330c-4461-8eaa-cd8eb2f4f27f",
+        "id": "b1191582-cad7-4874-bffc-bcd68f2886c3",
         "name": "GOLD",
         "discount": 0.8,
         "threshold": 15000.0
@@ -140,21 +140,21 @@
       "date": {
         "year": 2021,
         "month": 9,
-        "day": 9
+        "day": 10
       },
       "time": {
-        "hour": 12,
-        "minute": 59,
-        "second": 0,
-        "nano": 584355300
+        "hour": 11,
+        "minute": 37,
+        "second": 19,
+        "nano": 706626800
       }
     }
   },
   {
-    "id": "fc061de4-0778-403e-ba87-f268093b89b9",
-    "specialId": "ZtiKUZi9aV",
+    "id": "9a44afde-243b-47fe-9857-91f88bce8b58",
+    "specialId": "uDJlXLbYbb",
     "manifestation": {
-      "id": "81ed801f-fb5e-47f6-9d83-acbc626e7cae",
+      "id": "f3dc2097-541e-4ad0-8207-aea654e74281",
       "name": "Fated spin",
       "type": "Wedding",
       "capacity": "100",
@@ -162,19 +162,19 @@
         "date": {
           "year": 2021,
           "month": 9,
-          "day": 9
+          "day": 10
         },
         "time": {
-          "hour": 12,
-          "minute": 59,
-          "second": 0,
-          "nano": 480356000
+          "hour": 11,
+          "minute": 37,
+          "second": 19,
+          "nano": 562125200
         }
       },
       "ticketPrice": 250.0,
       "active": true,
       "location": {
-        "id": "d458d156-894d-414e-a617-b4b3b3d11d37",
+        "id": "91baf2dd-8119-4c4f-9fc1-de1c7c56e658",
         "latitude": 45.2716,
         "longitude": 19.8478,
         "address": "Novi Sad"
@@ -186,18 +186,18 @@
       "date": {
         "year": 2021,
         "month": 9,
-        "day": 9
+        "day": 10
       },
       "time": {
-        "hour": 12,
-        "minute": 59,
-        "second": 0,
-        "nano": 480356000
+        "hour": 11,
+        "minute": 37,
+        "second": 19,
+        "nano": 562125200
       }
     },
     "price": 250.0,
     "buyer": {
-      "id": "306350b6-bdbf-448e-a345-fbee3004fa6a",
+      "id": "c0a6b01f-d7ac-4080-a5ed-0bbd7eb510bc",
       "username": "RandomBuyer9",
       "password": "buyer9",
       "name": "Boba9",
@@ -207,7 +207,7 @@
       "role": "KUPAC",
       "points": 15005.0,
       "type": {
-        "id": "6b344435-330c-4461-8eaa-cd8eb2f4f27f",
+        "id": "b1191582-cad7-4874-bffc-bcd68f2886c3",
         "name": "GOLD",
         "discount": 0.8,
         "threshold": 15000.0
@@ -220,10 +220,10 @@
     "deleted": false
   },
   {
-    "id": "755a5b3d-3457-4296-bd36-48a24dcf74a8",
-    "specialId": "udMUiRN0Um",
+    "id": "0164461e-16a8-439d-9a90-f18bd39cb3f6",
+    "specialId": "1EifTkgPR1",
     "manifestation": {
-      "id": "54a5d389-c274-4069-a7fa-db82530e9b7b",
+      "id": "ee2c7f69-4e87-4eb3-9bfb-e9f0d82b865d",
       "name": "Petroland",
       "type": "Aquapark",
       "capacity": "300",
@@ -231,19 +231,19 @@
         "date": {
           "year": 2021,
           "month": 9,
-          "day": 23
+          "day": 24
         },
         "time": {
-          "hour": 12,
-          "minute": 59,
-          "second": 0,
-          "nano": 549354800
+          "hour": 11,
+          "minute": 37,
+          "second": 19,
+          "nano": 656625100
         }
       },
       "ticketPrice": 400.0,
       "active": true,
       "location": {
-        "id": "d458d156-894d-414e-a617-b4b3b3d11d37",
+        "id": "91baf2dd-8119-4c4f-9fc1-de1c7c56e658",
         "latitude": 45.2716,
         "longitude": 19.8478,
         "address": "Novi Sad"
@@ -255,18 +255,18 @@
       "date": {
         "year": 2021,
         "month": 9,
-        "day": 23
+        "day": 24
       },
       "time": {
-        "hour": 12,
-        "minute": 59,
-        "second": 0,
-        "nano": 549354800
+        "hour": 11,
+        "minute": 37,
+        "second": 19,
+        "nano": 656625100
       }
     },
     "price": 1600.0,
     "buyer": {
-      "id": "306350b6-bdbf-448e-a345-fbee3004fa6a",
+      "id": "c0a6b01f-d7ac-4080-a5ed-0bbd7eb510bc",
       "username": "RandomBuyer9",
       "password": "buyer9",
       "name": "Boba9",
@@ -276,7 +276,7 @@
       "role": "KUPAC",
       "points": 15005.0,
       "type": {
-        "id": "6b344435-330c-4461-8eaa-cd8eb2f4f27f",
+        "id": "b1191582-cad7-4874-bffc-bcd68f2886c3",
         "name": "GOLD",
         "discount": 0.8,
         "threshold": 15000.0

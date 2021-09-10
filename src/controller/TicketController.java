@@ -242,7 +242,7 @@ public class TicketController {
             UserType maxThresholdType = PopStore.getCurrentUser().getType();
             for (var userType : PopStore.getUserTypes()) {
                 if (PopStore.getCurrentUser().getPoints() >= userType.getThreshold() &&
-                        userType.getThreshold() > maxThresholdType.getThreshold()) {
+                        (maxThresholdType == null || userType.getThreshold() > maxThresholdType.getThreshold())) {
                     maxThresholdType = userType;
                 }
             }
@@ -281,17 +281,19 @@ public class TicketController {
 
         double lostPoints = ticket.getPrice() / 1000 * 133 * 4;
         PopStore.getCurrentUser().setPoints(PopStore.getCurrentUser().getPoints() - lostPoints);
-        if (PopStore.getCurrentUser().getType().getThreshold() > PopStore.getCurrentUser().getPoints()) {
-            UserType maxThresholdType = null;
-            for (var userType : PopStore.getUserTypes()) {
-                if (userType.getThreshold() <= PopStore.getCurrentUser().getPoints()) {
-                    if (maxThresholdType == null)
-                        maxThresholdType = userType;
-                    else if (userType.getThreshold() > maxThresholdType.getThreshold())
-                        maxThresholdType = userType;
+        if (PopStore.getCurrentUser().getType() != null) {
+            if (PopStore.getCurrentUser().getType().getThreshold() > PopStore.getCurrentUser().getPoints()) {
+                UserType maxThresholdType = null;
+                for (var userType : PopStore.getUserTypes()) {
+                    if (userType.getThreshold() <= PopStore.getCurrentUser().getPoints()) {
+                        if (maxThresholdType == null)
+                            maxThresholdType = userType;
+                        else if (userType.getThreshold() > maxThresholdType.getThreshold())
+                            maxThresholdType = userType;
+                    }
                 }
+                PopStore.getCurrentUser().setType(maxThresholdType);
             }
-            PopStore.getCurrentUser().setType(maxThresholdType);
         }
 
         res.body(String.valueOf(lostPoints));

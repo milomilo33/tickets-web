@@ -75,6 +75,7 @@ public class Main {
         post("/api/createcomment", CommentController.AddComment);
         post("/api/approvecomment/:id", CommentController.ApproveComment);
         post("/api/deletecomment/:id", CommentController.DeleteComment);
+        post("/api/sellers/register", UserController.RegisterSeller);
     }
 
 }

@@ -96,6 +96,24 @@ Vue.component('profileview', {
                           />
                         </div>
                       </div>
+                      
+                      <div class="form-group row" v-if="isBuyer">
+                        <label
+                          for="userType"
+                          class="col-md-4 col-form-label text-md-right"
+                          >Account type</label
+                        >
+                        <div class="col-md-4">
+                          <input
+                            type="text"
+                            id="userType"
+                            class="form-control"
+                            name="userType"
+                            v-model="userType"
+                            readonly
+                          />
+                        </div>
+                      </div>
             
                       <div class="col-md-4 offset-md-4">
                         <button class="btn btn-success">Update</button>
@@ -119,7 +137,8 @@ Vue.component('profileview', {
             showSuccessAlert: false,
             showFailedAlert: false,
             isBuyer: false,
-            points: ""
+            points: "",
+            userType: ""
         };
     },
 
@@ -165,10 +184,11 @@ Vue.component('profileview', {
                 this.name = user.name;
                 this.lastName = user.surname;
                 this.gender = user.gender;
-                this.dateOfBirth = user.birth;
+                this.dateOfBirth = new Date(user.birth).toISOString().split('T', 1)[0];
 
                 if (user.role === "KUPAC") {
                     this.points = user.points;
+                    this.userType = user.type.name;
                     this.isBuyer = true;
                 }
             })

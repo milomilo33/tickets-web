@@ -2,7 +2,7 @@ Vue.component('registrationview', {
     template: `
         <div class="container">
             <b-alert v-model="showSuccessAlert" dismissible fade variant="success">
-              You have successfully registered as '{{this.username}}'.
+                {{this.successMessage}}
             </b-alert>
             <b-alert v-model="showFailedAlert" dismissible fade variant="danger">
                 {{this.errorMessage}}
@@ -150,8 +150,10 @@ Vue.component('registrationview', {
             password1: "",
             password2: "",
             errorMessage: "",
+            successMessage: "",
             showSuccessAlert: false,
             showFailedAlert: false,
+            role: ""
         };
     },
     methods: {
@@ -182,24 +184,56 @@ Vue.component('registrationview', {
             }
 
             if (!errorFound) {
-                axios
-                    .post('/buyers/register', {
-                        name: this.name,
-                        surname: this.lastName,
-                        username: this.username,
-                        password: this.password2,
-                        gender: this.gender,
-                        birth: this.dateOfBirth
-                    })
-                    .then(function (response) {
-                        _this.showSuccessAlert = true;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                        _this.errorMessage = error.response.data;
-                        _this.showFailedAlert = true;
-                    });
+                if (this.role === "buyer") {
+                    axios
+                        .post('/buyers/register', {
+                            name: this.name,
+                            surname: this.lastName,
+                            username: this.username,
+                            password: this.password2,
+                            gender: this.gender,
+                            birth: this.dateOfBirth
+                        })
+                        .then(function (response) {
+                            let un = this.username.value;
+                            _this.successMessage = `You have successfully registered as '${un}'.`;
+                            _this.showSuccessAlert = true;
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            _this.errorMessage = error.response.data;
+                            _this.showFailedAlert = true;
+                        });
+                }
+
+                else if (this.role === "admin") {
+                    axios
+                        .post('/sellers/register', {
+                            name: this.name,
+                            surname: this.lastName,
+                            username: this.username,
+                            password: this.password2,
+                            gender: this.gender,
+                            birth: this.dateOfBirth
+                        })
+                        .then(function (response) {
+                            let un = this.username.value;
+                            _this.successMessage = `You have successfully created buyer '${un}'.`;
+                            _this.showSuccessAlert = true;
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                            _this.errorMessage = error.response.data;
+                            _this.showFailedAlert = true;
+                        });
+                }
             }
         }
+    },
+    mounted() {
+        if (this.$route.path.includes("AdminView"))
+            this.role = "admin";
+        else
+            this.role = "buyer";
     }
 })

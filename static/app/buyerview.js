@@ -27,7 +27,6 @@ Vue.component('buyerview', {
                         <b-navbar-nav class="ml-auto">                
                             <b-nav-item-dropdown :text="currentUsername" right>
                                 <b-dropdown-item href="/#/BuyerView/Profile">Profile</b-dropdown-item>
-                                <b-dropdown-item href="">Change password</b-dropdown-item>
                                 <b-dropdown-item href="" v-on:click="logout">Sign Out</b-dropdown-item>
                             </b-nav-item-dropdown>
                         </b-navbar-nav>
