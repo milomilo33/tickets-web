@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 public class PopStore {
     private static User currentUser;
@@ -55,7 +56,7 @@ public class PopStore {
 
         try {
             Reader reader = Files.newBufferedReader(Paths.get("src/storage/output/users.json"));
-            users = Arrays.asList(gson.fromJson(reader, User[].class));
+            users = new ArrayList<>(Arrays.asList(gson.fromJson(reader, User[].class)));
             reader.close();
         } catch (Exception ignored) {
 
@@ -63,21 +64,21 @@ public class PopStore {
         try {
             Gson gson1 = new GsonBuilder().setPrettyPrinting().create();
             Reader reader = Files.newBufferedReader(Paths.get("src/storage/output/manifestations.json"));
-            manifestations = Arrays.asList(gson1.fromJson(reader, Manifestation[].class));
+            manifestations = new ArrayList<>(Arrays.asList(gson1.fromJson(reader, Manifestation[].class)));
             reader.close();
         } catch (Exception ignored) {
 
         }
         try {
             Reader reader = Files.newBufferedReader(Paths.get("src/storage/output/tickets.json"));
-            tickets = Arrays.asList(gson.fromJson(reader, Ticket[].class));
+            tickets = new ArrayList<>(Arrays.asList(gson.fromJson(reader, Ticket[].class)));
             reader.close();
         } catch (Exception ignored) {
 
         }
         try {
             Reader reader = Files.newBufferedReader(Paths.get("src/storage/output/comments.json"));
-            comments = Arrays.asList(gson.fromJson(reader, Comment[].class));
+            comments = new ArrayList<>(Arrays.asList(gson.fromJson(reader, Comment[].class)));
             reader.close();
         } catch (Exception ignored) {
 

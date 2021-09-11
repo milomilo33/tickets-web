@@ -13,14 +13,7 @@ Vue.component('buyerview', {
                         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
                         <b-collapse id="nav-collapse" is-nav>
                         <b-navbar-nav>
-                          <b-nav-item href="/#/BuyerView/AllTickets">Your tickets</b-nav-item>
-                            <b-nav-item-dropdown text="Dropdown placeholder" left>
-                                <b-dropdown-item href="">Option uno</b-dropdown-item>
-                                <b-dropdown-item href="">Option dos</b-dropdown-item>
-                                <b-dropdown-item href="">Option tres</b-dropdown-item>
-                                <b-dropdown-item href="">Option cuatro</b-dropdown-item>
-                            </b-nav-item-dropdown>
-                          <b-nav-item href="">Placeholder #3</b-nav-item>
+                          <b-nav-item href="/#/BuyerView/AllTickets">Your tickets</b-nav-item>                         
                         </b-navbar-nav>
                         
                         <!-- Right aligned nav items -->

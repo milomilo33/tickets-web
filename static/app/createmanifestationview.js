@@ -15,6 +15,7 @@ Vue.component('createmanifestationview',{
         },
          pictureNotUploaded: true,
          mapPosition: {latitude: 45.267136, longitude: 19.833549},
+         currentDate: new Date().toISOString().split('T', 1)[0],
      }
     },
     template: `<div>
@@ -43,7 +44,7 @@ Vue.component('createmanifestationview',{
             </b-form-group>
             
             <b-form-group label="Opening date:" label-size="lg" label-class="font-weight-bold" flush>
-              <input id="crma5" type="date" v-model="manifestation.date" class="form-control"/>
+              <input id="crma5" type="date" v-model="manifestation.date" class="form-control" :min="currentDate"/>
             </b-form-group>
             
             <b-form-group label="Opening time:" label-size="lg" label-class="font-weight-bold" flush>

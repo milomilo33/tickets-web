@@ -93,6 +93,7 @@ public class UserController {
     public static Route Logout = ((req, res) -> {
         PopStore.setCurrentUser(null);
         req.session().attribute("currentUser", null);
+        req.session().invalidate();
         res.status(200);
         return res;
     });

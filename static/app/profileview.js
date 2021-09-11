@@ -188,7 +188,9 @@ Vue.component('profileview', {
 
                 if (user.role === "KUPAC") {
                     this.points = user.points;
-                    this.userType = user.type.name;
+                    if(user.type)
+                        this.userType = user.type.name;
+                    else this.userType = "None";
                     this.isBuyer = true;
                 }
             })

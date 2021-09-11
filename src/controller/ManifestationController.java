@@ -99,6 +99,8 @@ public class ManifestationController {
 
             if(searchParams.getOrDefault("dateFrom", "1900-01-01").equals("")) searchParams.put("dateFrom", "1900-01-01");
             if(searchParams.getOrDefault("dateTo", "1900-01-01").equals("")) searchParams.put("dateTo", "3021-01-01");
+            if(searchParams.getOrDefault("priceFrom", "0.0").equals("")) searchParams.put("priceFrom", "0.0");
+            if(searchParams.getOrDefault("priceTo", "9999999.0").equals("")) searchParams.put("priceTo", "9999999.0");
             if(searchParams.get("typeSelected").equals("Select a type:"))searchParams.put("typeSelected", "");
             var fpManifs = manifestations.stream()
                     .filter(manifestation -> manifestation.getName().toLowerCase().contains(searchParams.getOrDefault("name", manifestation.getName()).toLowerCase()))

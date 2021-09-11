@@ -21,8 +21,8 @@ Vue.component('allmanifestationsview', {
             types: [],
             typeSelected: 'Select a type:',
             address: '',
-            priceFrom: 0.0,
-            priceTo: 999999.0,
+            priceFrom: '',
+            priceTo: '',
             name: '',
             showDeleted: false,
             showActivated: false,
@@ -44,8 +44,10 @@ Vue.component('allmanifestationsview', {
 
     template: `
         <div>
+        <h1><b>Manifestations</b></h1>
+        <br/>
         <b-form class="px-3" inline>
-        <b-form-group label="Search options:" label-size="lg" label-class="font-weight-bold">
+        <b-form-group  label-size="lg" label-class="font-weight-bold">
             <b-form-input class="mb-2 mr-sm-2 mb-sm-0" id="manif-search-name" placeholder="Name" v-model="name"/>
             <b-form-input class="mb-2 mr-sm-2 mb-sm-0" id="manif-search-address" placeholder="Address" v-model="address"/>
             <b-form-input class="mb-2 mr-sm-2 mb-sm-0" id="manif-search-price-from" placeholder="Price (From)" v-model="priceFrom"/>
@@ -78,7 +80,7 @@ Vue.component('allmanifestationsview', {
             img-alt="Image"
             img-top
             tag="article"
-            style="max-width: 20rem;"
+            style="width: 330px; height: 650px"
             class="mb-2"
           >
             <b-list-group flush>

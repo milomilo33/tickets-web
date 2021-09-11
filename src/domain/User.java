@@ -14,7 +14,7 @@ public class User {
     private String birth;
     private UserRole role;
     private transient Collection<Ticket> tickets;
-    private transient Collection<Manifestation> manifestations;
+    private Collection<Manifestation> manifestations;
     private Double points;
     private UserType type;
     private Boolean blocked;

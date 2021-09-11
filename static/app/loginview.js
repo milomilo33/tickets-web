@@ -13,7 +13,7 @@ Vue.component('loginview', {
                 required
               >
               </b-form-input>
-        
+                <br/>
               <b-form-input
                 id="input-2"
                 v-model="password"

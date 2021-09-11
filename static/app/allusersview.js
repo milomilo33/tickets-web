@@ -34,8 +34,11 @@ Vue.component('allusersview', {
 
         template: `
         <div>
+        <h1 v-if="role==='admin'"><b>Users</b></h1>
+        <h1 v-if="role==='seller'"><b>Buyers</b></h1>
+        <br/>
         <b-form class="px-3" inline>
-            <b-form-group label="Search options:" label-size="lg" label-class="font-weight-bold">
+            <b-form-group label-size="lg" label-class="font-weight-bold">
                 <b-form-input class="mb-2 mr-sm-2 mb-sm-0" id="user-search-name" placeholder="Name" v-model="name"/>
                 <b-form-input class="mb-2 mr-sm-2 mb-sm-0" id="user-search-last-name" placeholder="Last Name" v-model="lastName"/>
                 <b-form-input class="mb-2 mr-sm-2 mb-sm-0" id="user-search-username" placeholder="Username" v-model="username"/>
@@ -48,7 +51,7 @@ Vue.component('allusersview', {
                 <b-form-select v-if="isAdmin()" class="mb-2 mr-sm-2 mb-sm-0" :options="userRoles" v-model="userRoleSelected"></b-form-select>
                 <b-form-select class="mb-2 mr-sm-2 mb-sm-0" :options="userTypes" v-model="userTypeSelected"></b-form-select>
             </b-form-group>
-            <b-form-checkbox v-model="onlySuspicious" class="pt-4" v-if="this.role === 'admin'">Show suspicious users</b-form-checkbox>
+            <b-form-checkbox v-model="onlySuspicious" class="pt-4" v-if="this.role === 'admin'">Show suspicious buyers</b-form-checkbox>
         </b-form>
         <br/>
         <b-card-group deck>
@@ -59,8 +62,8 @@ Vue.component('allusersview', {
             img-alt="Image"
             img-top
             tag="article"
-            style="max-width: 20rem;"
-            class="mb-2"
+            style="max-width: 20rem; width: 300px; height: 760px"
+            class="mb-2"       
           >
             <b-list-group flush>
               <b-list-group-item>Name: {{u.name}}</b-list-group-item>
@@ -69,7 +72,7 @@ Vue.component('allusersview', {
               <b-list-group-item>Gender: {{u.gender}}</b-list-group-item>
               <b-list-group-item>Date of birth: {{u.birth}}</b-list-group-item>
               <b-list-group-item v-if="isAdmin()">Role: {{userRoleConv(u.role)}}</b-list-group-item>
-              <b-list-group-item v-if="u.role === 'KUPAC'">Type: {{u.type.name}}</b-list-group-item>
+              <b-list-group-item v-if="u.role === 'KUPAC'">Type: {{u.type ? u.type.name : 'None'}}</b-list-group-item>
               <b-list-group-item v-if="u.role === 'KUPAC'">Points: {{u.points}}</b-list-group-item>
               <b-list-group-item v-if="u.blocked">BLOCKED</b-list-group-item>
             </b-list-group>

@@ -3,19 +3,7 @@ Vue.component('mainview', {
         <div>
             <div class="navbar-div" style="margin-bottom: 100px;">
                 <b-navbar fixed="top" toggleable="lg" type="light" variant="light">
-                    <b-navbar-brand href="/">Home Page</b-navbar-brand>
-                    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-                    <b-collapse id="nav-collapse" is-nav>
-                    <b-navbar-nav>
-                      <b-nav-item href="">Placeholder #1</b-nav-item>
-                      <b-nav-item href="">Placeholder #2</b-nav-item>
-                        <b-nav-item-dropdown text="Dropdown placeholder" left>
-                            <b-dropdown-item href="">Option uno</b-dropdown-item>
-                            <b-dropdown-item href="">Option dos</b-dropdown-item>
-                            <b-dropdown-item href="">Option tres</b-dropdown-item>
-                            <b-dropdown-item href="">Option cuatro</b-dropdown-item>
-                        </b-nav-item-dropdown>
-                      <b-nav-item href="">Placeholder #3</b-nav-item>
+                    <b-navbar-brand href="/">Home Page</b-navbar-brand>                
                     </b-navbar-nav>
                     
                     <!-- Right aligned nav items -->

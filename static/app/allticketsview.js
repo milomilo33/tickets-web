@@ -23,8 +23,8 @@ Vue.component('allticketsview', {
                 ],
                 typeSelected: 'Select a ticket type:',
                 onlyReserved: '',
-                priceFrom: 0.0,
-                priceTo: 999999.0,
+                priceFrom: '',
+                priceTo: '',
                 role: '',
                 errorMessage: ''
             };
@@ -32,8 +32,10 @@ Vue.component('allticketsview', {
 
         template: `
         <div>
+        <h1><b>Tickets</b></h1>
+        <br/>
         <b-form class="px-3" inline>
-            <b-form-group label="Search options:" label-size="lg" label-class="font-weight-bold">
+            <b-form-group label-size="lg" label-class="font-weight-bold">
                 <b-form-input class="mb-2 mr-sm-2 mb-sm-0" id="ticket-search-manifestation-name" placeholder="Manifestation Name" v-model="manifestationName"/>
                 <b-form-input class="mb-2 mr-sm-2 mb-sm-0" id="ticket-search-price-from" placeholder="Price (From)" v-model="priceFrom"/>
                 <b-form-input class="mb-2 mr-sm-2 mb-sm-0" id="ticket-search-price-to" placeholder="Price (To)" v-model="priceTo"/>
@@ -65,7 +67,7 @@ Vue.component('allticketsview', {
             img-alt="Image"
             img-top
             tag="article"
-            style="max-width: 20rem;"
+            style="max-width: 20rem; width: 300px; height: 650px"
             class="mb-2"
           >
             <b-list-group flush>

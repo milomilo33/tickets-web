@@ -24,8 +24,10 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         port(8080);
-        PopGenerator.fillPopStore();
-        PopStore.writeAll();
+        //PopGenerator.fillPopStore();
+        //PopStore.writeAll();
+        PopGenerator.specialPopFill();
+        PopStore.readAll();
 
         try {
             staticFiles.externalLocation(new File("./static").getCanonicalPath());
@@ -76,6 +78,17 @@ public class Main {
         post("/api/approvecomment/:id", CommentController.ApproveComment);
         post("/api/deletecomment/:id", CommentController.DeleteComment);
         post("/api/sellers/register", UserController.RegisterSeller);
+
+        afterAfter((request, response) -> {
+            Thread t = new Thread(() -> {
+                try {
+                    PopStore.writeAll();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            t.start();
+        });
     }
 
 }
