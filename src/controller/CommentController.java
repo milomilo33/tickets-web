@@ -21,11 +21,15 @@ public class CommentController {
         res.status(200);
         if(PopStore.getCurrentUser() != null)
         {if(PopStore.getCurrentUser().getRole().equals(UserRole.KUPAC)){
-            var tickets = PopStore.getTickets().stream().filter(ticket -> {
+            for(var ticket : PopStore.getTickets()){
                 Boolean ret = ticket.getManifestation().getId().equals(UUID.fromString(req.params(":id"))) && ticket.getManifestation().getDate().isBefore(LocalDateTime.now()) && ticket.getStatus().equals(TicketStatus.REZERVISANA) && ticket.getBuyer().getId().equals(PopStore.getCurrentUser().getId());
+                System.out.println(req.params(":id"));
+                System.out.println(ticket.getManifestation().getId().equals(UUID.fromString(req.params(":id"))));
+                System.out.println(ticket.getManifestation().getDate().isBefore(LocalDateTime.now()));
+                System.out.println(ticket.getBuyer().getId().equals(PopStore.getCurrentUser().getId()));
                 res.body(gson.toJson(ret.toString()));
-                return false;
-            }).collect(Collectors.toList());
+                if(ret) return res;
+            }
         }
         else
             res.body(gson.toJson("false"));}
@@ -44,14 +48,15 @@ public class CommentController {
         comment.setUser(PopStore.getCurrentUser());
         comment.setDeleted(false);
         comment.setApproved(false);
+        comment.setRejected(false);
         PopStore.getComments().add(comment);
         res.status(200);
         return res;
     });
 
     public static void CalcManifestationRating(Manifestation m){
-        var div1 = PopStore.getComments().stream().filter(comment -> comment.getManifestation().getId().equals(m.getId())).filter(comment -> !comment.getDeleted()).filter(Comment::getApproved).mapToDouble(Comment::getRating).sum();
-        var div2 = PopStore.getComments().stream().filter(comment -> comment.getManifestation().getId().equals(m.getId())).filter(comment -> !comment.getDeleted()).filter(Comment::getApproved).count();
+        var div1 = PopStore.getComments().stream().filter(comment -> comment.getManifestation().getId().equals(m.getId())).filter(comment -> !comment.getDeleted()).filter(Comment::getApproved).filter(comment -> !comment.getRejected()).mapToDouble(Comment::getRating).sum();
+        var div2 = PopStore.getComments().stream().filter(comment -> comment.getManifestation().getId().equals(m.getId())).filter(comment -> !comment.getDeleted()).filter(Comment::getApproved).filter(comment -> !comment.getRejected()).count();
         m.setRating(Math.round((div2 == 0 ? 0.0 : div1/div2) * 100.0) / 100.0);
     }
 
@@ -71,6 +76,18 @@ public class CommentController {
         var comments = PopStore.getComments().stream().filter(comment -> {
             if(comment.getId().equals(UUID.fromString(req.params(":id")))) {
                 comment.setDeleted(true);
+                CalcManifestationRating(comment.getManifestation());
+            }
+            return false;
+        }).collect(Collectors.toList());
+        res.status(200);
+        return res;
+    });
+
+    public static Route RejectComment = ((req, res) -> {
+        var comments = PopStore.getComments().stream().filter(comment -> {
+            if(comment.getId().equals(UUID.fromString(req.params(":id")))) {
+                comment.setRejected(true);
                 CalcManifestationRating(comment.getManifestation());
             }
             return false;

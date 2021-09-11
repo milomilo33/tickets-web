@@ -80,10 +80,16 @@ Vue.component('manifestationdetailsview', {
             <b-card-text class="col-1">
                 {{c.text}}
             </b-card-text>
-            <b-card-text class="col-1">
-                Rated: {{ratingConv(c.rating)}}
-            </b-card-text>
+            <b-row>
+                <b-card-text class="col-1">
+                    Rated: {{ratingConv(c.rating)}}
+                </b-card-text>
+                <b-card-text class="col-1">
+                    {{commentStatus(c)}}
+                </b-card-text>
+            </b-row>
             <b-button variant="success" v-if="showComment(c)" v-on:click="approveComment(c.id)">Approve</b-button>
+             <b-button variant="warning" v-if="showComment(c)" v-on:click="rejectComment(c.id)">Reject</b-button>
             <b-button variant="danger" v-if="showDelete()" v-on:click="deleteComment(c.id)">Delete</b-button>
           </b-card>
         </div>
@@ -160,7 +166,7 @@ Vue.component('manifestationdetailsview', {
         showComment(c){
             let curr = window.location.href;
             curr = curr.split('/')[4];
-            return !c.approved && curr === 'SellerView';
+            return !c.approved && !c.rejected && (curr === 'SellerView');
         },
         showDelete(){
             let curr = window.location.href;
@@ -201,6 +207,28 @@ Vue.component('manifestationdetailsview', {
                     alert('Comment deleted!');
                     self.refreshManifestation();
                 })
+        },
+        rejectComment(id){
+            let self = this;
+            axios.post('rejectcomment/' + id)
+                .then(res => {
+                    alert('Comment rejected!');
+                    self.refreshManifestation();
+                })
+        },
+        commentStatus(c){
+            let curr = window.location.href;
+            curr = curr.split('/')[4];
+            if(curr==='AdminView' || curr ==='SellerView')
+            {
+                if(c.rejected)
+                    return 'Status: Rejected';
+                if(c.approved)
+                    return 'Status: Approved';
+                return 'Status: Pending...';
+            }
+            else
+                return '';
         }
     },
     mounted(){

@@ -104,7 +104,7 @@ public class PopGenerator {
         System.out.println(user.getUsername());
         System.out.println(user.getType());
         System.out.println(user.getPoints());
-        Ticket ticket = new Ticket(UUID.randomUUID(), generateShortId(10),m,m.getDate(), 400.0, user, TicketStatus.REZERVISANA, TicketType.REGULAR);
+        Ticket ticket = new Ticket(UUID.randomUUID(), generateShortId(10),new ArrayList<>(PopStore.getManifestations()).get(0),new ArrayList<>(PopStore.getManifestations()).get(0).getDate(), 250.0, user, TicketStatus.REZERVISANA, TicketType.REGULAR);
         PopStore.getTickets().add(ticket);
         Manifestation randomManifestation = PopStore.getManifestations().stream()
                                     .skip((int) (PopStore.getManifestations().size() * Math.random()))
@@ -126,7 +126,7 @@ public class PopGenerator {
         ticket = new Ticket(UUID.randomUUID(), generateShortId(10),randomManifestation,randomManifestation.getDate(), randomManifestation.getTicketPrice() * 4, user, TicketStatus.REZERVISANA, TicketType.VIP);
         PopStore.getTickets().add(ticket);
 
-        Comment comment = new Comment(UUID.randomUUID(), user, new ArrayList<>(PopStore.getManifestations()).get(0), "sve je bilo super", 10, true, false);
+        Comment comment = new Comment(UUID.randomUUID(), user, new ArrayList<>(PopStore.getManifestations()).get(0), "sve je bilo super", 10, true, false, false);
         PopStore.getComments().add(comment);
     }
 }

@@ -11,6 +11,7 @@ public class Comment {
     private Integer rating;
     private Boolean approved;
     private Boolean deleted;
+    private Boolean rejected;
 
     public Boolean getApproved() {
         return approved;
@@ -39,6 +40,7 @@ public class Comment {
                 ", rating=" + rating +
                 ", approved=" + approved +
                 ", deleted=" + deleted +
+                ", rejected=" + rejected +
                 '}';
     }
 
@@ -53,15 +55,16 @@ public class Comment {
                 Objects.equals(text, comment.text) &&
                 Objects.equals(rating, comment.rating) &&
                 Objects.equals(approved, comment.approved) &&
-                Objects.equals(deleted, comment.deleted);
+                Objects.equals(deleted, comment.deleted) &&
+                Objects.equals(rejected, comment.rejected);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, manifestation, text, rating, approved, deleted);
+        return Objects.hash(id, user, manifestation, text, rating, approved, deleted, rejected);
     }
 
-    public Comment(UUID id, User user, Manifestation manifestation, String text, Integer rating, Boolean approved, Boolean deleted) {
+    public Comment(UUID id, User user, Manifestation manifestation, String text, Integer rating, Boolean approved, Boolean deleted, Boolean rejected) {
         this.id = id;
         this.user = user;
         this.manifestation = manifestation;
@@ -69,6 +72,15 @@ public class Comment {
         this.rating = rating;
         this.approved = approved;
         this.deleted = deleted;
+        this.rejected = rejected;
+    }
+
+    public Boolean getRejected() {
+        return rejected;
+    }
+
+    public void setRejected(Boolean rejected) {
+        this.rejected = rejected;
     }
 
     public UUID getId() {
