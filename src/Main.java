@@ -24,10 +24,10 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         port(8080);
-//        PopGenerator.fillPopStore();
-//        PopStore.writeAll();
-        PopGenerator.specialPopFill();
-        PopStore.readAll();
+       PopGenerator.fillPopStore();
+      PopStore.writeAll();
+     //PopGenerator.specialPopFill();
+     //PopStore.readAll();
 
         try {
             staticFiles.externalLocation(new File("./static").getCanonicalPath());

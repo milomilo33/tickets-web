@@ -54,7 +54,7 @@ public class TicketController {
         return PopStore.getTickets()
                 .stream()
                 .filter(ticket -> !ticket.getDeleted())
-                .filter(ticket -> PopStore.getCurrentUser().getManifestations().contains(ticket.getManifestation()))
+                .filter(ticket -> PopStore.getCurrentUser().getManifestations().stream().anyMatch(manifestation -> manifestation.getId().equals(ticket.getManifestation().getId())))
                 .filter(ticket -> ticket.getStatus() == TicketStatus.REZERVISANA)
                 .collect(Collectors.toList());
     }

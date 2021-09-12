@@ -126,7 +126,7 @@ Vue.component('updatemanifestationview',{
             let self = this;
             $.get(' https://nominatim.openstreetmap.org/search?q=' + self.manifestation.address.replace(' ', '+') + '&format=json&addressdetails=1&limit=1&polygon_svg=1', function (data, status) {
                 let fullAddr = data[0].address;
-                fullAddr = (fullAddr.road ? fullAddr.road + ', ' : "")+ (fullAddr.house_number ? fullAddr.house_number + ', ' : "")
+                fullAddr = (fullAddr.road ? fullAddr.road + ', ' : "")+ (fullAddr.house_number ? fullAddr.house_number + ', ' : "") + (fullAddr.neighbourhood ? fullAddr.neighbourhood + ', ' : '')
                     + (fullAddr.city ? fullAddr.city + ', ' : "") + (fullAddr.country ? fullAddr.country : "");
                 self.manifestation.address = fullAddr;
                 self.manifestation.latitude = data[0].lat;

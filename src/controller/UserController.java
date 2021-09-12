@@ -148,7 +148,7 @@ public class UserController {
         else {
             res.status(200);
             List<String> userTypes = new ArrayList<>();
-            userTypes.add("/");
+            userTypes.add("None");
             for (var type : PopStore.getUserTypes())
                 userTypes.add(type.getName());
             res.body(gson.toJson(userTypes));
@@ -190,7 +190,7 @@ public class UserController {
                 .filter(user -> !user.getDeleted())
                 .filter(user -> {
                     for (var t : PopStore.getTickets())
-                        if (PopStore.getCurrentUser().getManifestations().contains(t.getManifestation()) &&
+                        if (PopStore.getCurrentUser().getManifestations().stream().anyMatch(manifestation -> manifestation.getId().equals(t.getManifestation().getId())) &&
                             t.getBuyer().getId().equals(user.getId()) && !t.getDeleted())
                             return true;
                     return false;
@@ -225,7 +225,7 @@ public class UserController {
                 .filter(user -> user.getName().toLowerCase().contains(searchParams.getOrDefault("name", user.getName()).toLowerCase()))
                 .filter(user -> user.getSurname().toLowerCase().contains(searchParams.getOrDefault("lastName", user.getSurname()).toLowerCase()))
                 .filter(user -> user.getUsername().toLowerCase().contains(searchParams.getOrDefault("username", user.getUsername()).toLowerCase()))
-                .filter(user -> user.getType().getName().toLowerCase().contains(searchParams.get("userTypeSelected").toLowerCase()))
+                .filter(user -> user.getType() == null ? (searchParams.get("userTypeSelected").equals("None") || searchParams.get("userTypeSelected").equals("")) && (user.getRole().equals(UserRole.KUPAC)) : user.getType().getName().toLowerCase().contains(searchParams.get("userTypeSelected").toLowerCase()))
                 .filter(user -> user.getRole().name().toLowerCase().contains(searchParams.get("userRoleSelected").toLowerCase()))
                 .filter(user -> {
                     if (PopStore.getCurrentUser().getRole() == UserRole.ADMINISTRATOR) {

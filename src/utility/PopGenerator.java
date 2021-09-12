@@ -75,16 +75,16 @@ public class PopGenerator {
         m = new Manifestation(UUID.randomUUID(), "Petroland", "Aquapark", "300", LocalDateTime.now().plusDays(14), 400.0, true, location, imgToString("src/images/aquapark.png"), false, 0.0);
         PopStore.getManifestations().add(m);
 
-        User user = new User(UUID.randomUUID(), "AdminSuperstar", "admin0", "Dragoljub", "Vladin", "Male", "1981-03-09", UserRole.ADMINISTRATOR, null, null, 0.0, (UserType) PopStore.getUserTypes().toArray()[0], false, false);
+        User user = new User(UUID.randomUUID(), "AdminSuperstar", "admin0", "Dragoljub", "Vladin", "Male", "1981-03-09", UserRole.ADMINISTRATOR, null, null, 0.0, null, false, false);
         PopStore.getUsers().add(user);
         user = new User(UUID.randomUUID(), "SellerGenius0", "seller0", "Visnja", "Iljin", "Female", "1951-01-02", UserRole.PRODAVAC, null,
-                new LinkedHashSet<>(new ArrayList<>(PopStore.getManifestations()).subList(0,2)), 0.0, (UserType) PopStore.getUserTypes().toArray()[0], false, false);
+                new LinkedHashSet<>(new ArrayList<>(PopStore.getManifestations()).subList(0,2)), 0.0, null, false, false);
         PopStore.getUsers().add(user);
         user = new User(UUID.randomUUID(), "SellerGenius1", "seller1", "Slavica", "Travic", "Female", "1954-01-02", UserRole.PRODAVAC, null,
-                new LinkedHashSet<>(new ArrayList<>(PopStore.getManifestations()).subList(2,4)), 0.0, (UserType) PopStore.getUserTypes().toArray()[0], false, false);
+                new LinkedHashSet<>(new ArrayList<>(PopStore.getManifestations()).subList(2,4)), 0.0, null, false, false);
         PopStore.getUsers().add(user);
         user = new User(UUID.randomUUID(), "SellerGenius2", "seller2", "Vesna", "Babic", "Female", "1952-02-01", UserRole.PRODAVAC, null,
-                new LinkedHashSet<>(new ArrayList<>(PopStore.getManifestations()).subList(4,5)), 0.0, (UserType) PopStore.getUserTypes().toArray()[0], false, false);
+                new LinkedHashSet<>(new ArrayList<>(PopStore.getManifestations()).subList(4,5)), 0.0, null, false, false);
         PopStore.getUsers().add(user);
         for(int i=0; i<10; i++){
             double points = i*12 + 0.0;

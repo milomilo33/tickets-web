@@ -21,12 +21,8 @@ public class CommentController {
         res.status(200);
         if(PopStore.getCurrentUser() != null)
         {if(PopStore.getCurrentUser().getRole().equals(UserRole.KUPAC)){
-            for(var ticket : PopStore.getTickets()){
+            for(var ticket : PopStore.getTickets().stream().filter(ticket -> !ticket.getDeleted()).collect(Collectors.toList())){
                 Boolean ret = ticket.getManifestation().getId().equals(UUID.fromString(req.params(":id"))) && ticket.getManifestation().getDate().isBefore(LocalDateTime.now()) && ticket.getStatus().equals(TicketStatus.REZERVISANA) && ticket.getBuyer().getId().equals(PopStore.getCurrentUser().getId());
-                System.out.println(req.params(":id"));
-                System.out.println(ticket.getManifestation().getId().equals(UUID.fromString(req.params(":id"))));
-                System.out.println(ticket.getManifestation().getDate().isBefore(LocalDateTime.now()));
-                System.out.println(ticket.getBuyer().getId().equals(PopStore.getCurrentUser().getId()));
                 res.body(gson.toJson(ret.toString()));
                 if(ret) return res;
             }

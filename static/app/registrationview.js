@@ -218,7 +218,7 @@ Vue.component('registrationview', {
                         })
                         .then(function (response) {
                             let un = this.username.value;
-                            _this.successMessage = `You have successfully created buyer '${un}'.`;
+                            _this.successMessage = `You have successfully created seller '${un}'.`;
                             _this.showSuccessAlert = true;
                         })
                         .catch(function (error) {

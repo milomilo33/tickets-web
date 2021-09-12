@@ -78,6 +78,8 @@ Vue.component('allmanifestationsview', {
             :title="m.name"
             :img-src="m.picture"
             img-alt="Image"
+            img-width="330px"
+            img-height="240px"
             img-top
             tag="article"
             style="width: 330px; height: 650px"

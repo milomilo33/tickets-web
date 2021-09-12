@@ -113,6 +113,8 @@ public class ManifestationController {
                     .filter(manifestation -> {
                         var numns = PopStore.getTickets().stream()
                                 .filter(ticket -> manifestation.getId().equals(ticket.getManifestation().getId()))
+                                .filter(ticket -> !ticket.getDeleted())
+                                .filter(ticket -> ticket.getStatus() == TicketStatus.REZERVISANA)
                                 .count();
                         if(Boolean.parseBoolean(searchParams.get("soldOut")))
                             return numns < Integer.parseInt(manifestation.getCapacity());
@@ -208,13 +210,13 @@ public class ManifestationController {
 
     private static String GenerateManifestation(HashMap<?,?> json, String txt1, String txt2, Manifestation m){
         LocalDateTime dateTime = LocalDateTime.of(LocalDate.parse((CharSequence) json.get("date")), LocalTime.parse((CharSequence) json.get("time")));
-        if(PopStore.getManifestations().stream().anyMatch(manifestation -> manifestation.getDate().isEqual(dateTime) && manifestation.getLocationAddr().equals((String) json.get("address")))){
-            return "Opening date matches a manifestation that already exists.\n" + txt1 + " failed.";
-        }
+        if(!txt1.equals("Update"))
+            if(PopStore.getManifestations().stream().anyMatch(manifestation -> manifestation.getDate().isEqual(dateTime) && manifestation.getLocationAddr().equals((String) json.get("address")))){
+                return "Opening date matches a manifestation that already exists.\n" + txt1 + " failed.";
+            }
         Manifestation manifestation;
         manifestation = Objects.requireNonNullElseGet(m, Manifestation::new);
         manifestation.setId(UUID.randomUUID());
-        manifestation.setActive(false);
         manifestation.setCapacity((String) json.get("capacity"));
         manifestation.setDate(dateTime);
         manifestation.setDeleted(false);
@@ -232,6 +234,7 @@ public class ManifestationController {
         manifestation.setTicketPrice(Double.valueOf((String) json.get("ticketPrice")));
         manifestation.setType((String) json.get("type"));
         if(txt1.equals("Creation")) {
+            manifestation.setActive(false);
             List<Manifestation> manifestations = new ArrayList<>(PopStore.getManifestations());
             manifestations.add(0, manifestation);
             PopStore.setManifestations(manifestations);
