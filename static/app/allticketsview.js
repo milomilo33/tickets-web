@@ -79,6 +79,7 @@ Vue.component('allticketsview', {
             </b-list-group>
         
             <b-button v-if="cancellable(t.status)" v-on:click="cancel(t.id, t.manifestation.name, ticketTypeToStr(t.type))" variant="danger">Cancel</b-button>
+            <b-button v-if="isAdmin()" v-on:click="deleteTicket(t.id, t.manifestation.name)" variant="danger">Delete</b-button>
           </b-card>
         </div>        
         </div>
@@ -108,6 +109,35 @@ Vue.component('allticketsview', {
                     return "Reserved";
                 else
                     return "Cancelled";
+            },
+            isAdmin(){
+                return this.role === "admin";
+            },
+            deleteTicket(id, manifName){
+                let self = this;
+                axios.get('deleteticket/' + id)
+                    .then(res => {
+                        let okString = `You have deleted a ticket for '${manifName}'.`;
+                        this.$bvModal.msgBoxOk(okString, {
+                            title: 'Deleted',
+                            size: 'sm',
+                            buttonSize: 'sm',
+                            okVariant: 'success',
+                            headerClass: 'p-2 border-bottom-0',
+                            footerClass: 'p-2 border-top-0',
+                            centered: true
+                        });
+
+                        axios.get('/alltickets')
+                            .then(response => {
+                                self.tickets = response.data;
+                            })
+                            .catch(error => console.log(error));
+                    })
+                    .catch(err => {
+                        this.errorMessage = "Cannot delete ticket!";
+                        this.showErrorModal();
+                    });
             },
             search(e){
                 e.preventDefault();

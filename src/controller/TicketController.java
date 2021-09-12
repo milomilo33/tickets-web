@@ -302,4 +302,22 @@ public class TicketController {
         return res;
     });
 
+    public static Route DeleteTicket = ((req, res) -> {
+        UUID ticketId = UUID.fromString(req.params(":id"));
+
+        Ticket ticketToDelete = PopStore.getTickets()
+                .stream()
+                .filter(t -> t.getId().equals(ticketId)).collect(Collectors.toList()).get(0);
+
+        if (ticketToDelete == null) {
+            res.status(400);
+            return res;
+        }
+
+        ticketToDelete.setDeleted(true);
+        res.status(200);
+
+        return res;
+    });
+
 }

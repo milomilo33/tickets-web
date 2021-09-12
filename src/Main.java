@@ -24,8 +24,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         port(8080);
-        //PopGenerator.fillPopStore();
-        //PopStore.writeAll();
+//        PopGenerator.fillPopStore();
+//        PopStore.writeAll();
         PopGenerator.specialPopFill();
         PopStore.readAll();
 
@@ -64,6 +64,7 @@ public class Main {
         get("/api/usersearch", UserController.SearchAllUsers);
         get("/api/blockuser/:id", UserController.BlockUser);
         get("/api/deleteuser/:id", UserController.DeleteUser);
+        get("/api/deleteticket/:id", TicketController.DeleteTicket);
 
         post("/api/buyers/register", UserController.RegisterBuyer);
         post("/api/login", UserController.Login);

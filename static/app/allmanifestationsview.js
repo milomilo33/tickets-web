@@ -94,7 +94,7 @@ Vue.component('allmanifestationsview', {
             <b-button v-on:click="details(m.id)" variant="primary">Details</b-button>
             <b-button v-if="showDeleted" v-on:click="deleteManif(m.id)" variant="danger">Delete</b-button>
             <b-button v-if="activateBtn(m.active)" v-on:click="activateManif(m.id)" variant="success">Activate</b-button>
-            <b-button v-if="showReserveTickets" v-on:click="reserveTickets(m.id, m.name)" variant="success">Reserve tickets</b-button>
+            <b-button v-if="showReserveTickets" v-on:click="reserveTickets(m.id, m.name, m)" variant="success">Reserve tickets</b-button>
           </b-card>
         </div>        
         </div>
@@ -223,13 +223,22 @@ Vue.component('allmanifestationsview', {
                     return -1;
                 });
         },
-        reserveTickets(id, name){
+        reserveTickets(id, name, manifestation){
             this.selectedManifestationId = id;
             this.selectedManifestationName = name;
             this.ticketsLeft(id)
                 .then(amount => {
                     if (amount <= 0) {
                         this.errorMessage = "No tickets left for this manifestation.";
+                        this.showErrorModal();
+                        return;
+                    }
+
+                    let javaDate = manifestation.date;
+                    let jsDate = new Date(javaDate.date.year, javaDate.date.month - 1, javaDate.date.day, javaDate.time.hour, javaDate.time.minute, javaDate.time.second);
+                    let manifestationTimeStamp = jsDate.getTime();
+                    if (manifestationTimeStamp < new Date().getTime()) {
+                        this.errorMessage = "Cannot reserve tickets for a manifestation that has already happened!";
                         this.showErrorModal();
                         return;
                     }

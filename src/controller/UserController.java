@@ -331,13 +331,17 @@ public class UserController {
             return res;
         }
 
-        if (isUserSuspicious(userToBlock)) {
-            userToBlock.setBlocked(true);
-            res.status(200);
-            res.body(userToBlock.getUsername());
-        }
-        else
-            res.status(400);
+//        if (isUserSuspicious(userToBlock)) {
+//            userToBlock.setBlocked(true);
+//            res.status(200);
+//            res.body(userToBlock.getUsername());
+//        }
+//        else
+//            res.status(400);
+
+        userToBlock.setBlocked(true);
+        res.status(200);
+        res.body(userToBlock.getUsername());
 
         return res;
     });

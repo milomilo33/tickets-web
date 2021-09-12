@@ -62,7 +62,7 @@ Vue.component('allusersview', {
             img-alt="Image"
             img-top
             tag="article"
-            style="max-width: 20rem; width: 300px; height: 760px"
+            style="max-width: 20rem; width: 300px; height: 800px"
             class="mb-2"       
           >
             <b-list-group flush>
@@ -108,7 +108,7 @@ Vue.component('allusersview', {
                 }
             },
             showBlock(user){
-                return !user.blocked && user.role === "KUPAC" && this.role === "admin";
+                return !user.blocked && user.role !== "ADMINISTRATOR" && this.role === "admin";
             },
             showDelete(user){
                 return this.role === "admin" && user.role !== "ADMINISTRATOR";
@@ -151,8 +151,9 @@ Vue.component('allusersview', {
                             .catch(error => console.log(error));
                     })
                     .catch(err => {
-                        this.errorMessage = "User is not suspicious and therefore cannot be blocked!";
-                        this.showErrorModal();
+                        // this.errorMessage = "User is not suspicious and therefore cannot be blocked!";
+                        // this.showErrorModal();
+                        console.log(err);
                     });
             },
             deleteUser(id){

@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -87,6 +89,8 @@ public class PopStore {
 
     public static void writeAll(){
         try {
+            Path path = Paths.get("src/storage/output/users.json");
+            Files.createDirectories(path.getParent());
             Writer writer = Files.newBufferedWriter(Paths.get("src/storage/output/users.json"));
             gson.toJson(users, writer);
             writer.close();
